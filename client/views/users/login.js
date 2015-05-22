@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('wisely')
-.controller('UsersCtrl', function($scope, $state, $window, User){
+.controller('LoginCtrl', function($scope, $state, $window, User){
   $scope.name = $state.current.name;
 
   $scope.submit = function(user){
