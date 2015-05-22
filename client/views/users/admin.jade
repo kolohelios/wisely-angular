@@ -8,6 +8,7 @@ section
           button(ng-click='createButton()') Create a User
         section(ng-show='createOrEdit')
           h4(ng-hide='editUser') Create a New User
+            button.btn-danger.btn-sm(ng-click='cancel()') Cancel
           h4(ng-show='editUser') Edit User
           form(name='newUserForm')
             input.form-control.input-sm(type='text' name='firstname' ng-model='user.firstName' placeholder='First name...')

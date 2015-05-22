@@ -21,7 +21,7 @@ angular.module('wisely')
   };
 
   User.save = function(user){
-    var o = user;
+    var o = angular.copy(user);
     delete o.__v;
     delete o.createdAt;
     delete o._id;
