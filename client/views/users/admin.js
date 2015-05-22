@@ -19,14 +19,17 @@ angular.module('wisely')
   $scope.save = function(user){
     User.save(user)
     .then(function(response){
-      $window._.update($scope.users, function(userFromArray){
+      var recordToUpdate = $window._.find($scope.users, function(userFromArray){
         return userFromArray._id === response.data._id;
       });
+      recordToUpdate = response.data;
+      $scope.user = {};
       $scope.editUser = $scope.createOrEdit = false;
     })
     .catch(function(response){
       console.log(response);
       $window.swal({title: 'User Save Error', text: 'There was an error saving the user changes.', type: 'error'});
+      $scope.user = {};
     });
   };
 
@@ -44,10 +47,9 @@ angular.module('wisely')
       user.password = $scope.password1;
       User.create(user)
       .then(function(response){
-        $window._.update($scope.users, function(userFromArray){
-          return userFromArray._id === response.data._id;
-        });
+        $scope.users.push(response.data);
         $scope.createOrEdit = false;
+        $scope.user = {};
       })
       .catch(function(response){
         console.error(response);
@@ -59,5 +61,10 @@ angular.module('wisely')
 
   $scope.createButton = function(){
     $scope.createOrEdit = true;
+  };
+
+  $scope.cancel = function(){
+    $scope.user = {};
+    $scope.createOrEdit = false;
   };
 });
