@@ -1,1 +1,35 @@
-h3 HOME
+.container
+  // ////////// CAROUSEL SLIDER //////////
+  // declaring the carousel slides
+  #myCarousel.carousel.slide
+    ol.carousel-indicators
+      li.active(data-target="#myCarousel", data-slide-to="0")
+      li(data-target="#myCarousel", data-slide-to="1")
+      li(data-target="#myCarousel", data-slide-to="2")
+    // The carousel items themselves
+    .carousel-inner
+      // ////////// Carousel Item 1 //////////
+      .active.item.gallery-popup
+        a(href="http://placehold.it/800x600")
+          img.img-responsive(src="http://placehold.it/800x600", alt="placeholder image", title="placeholder image")
+      .item.gallery-popup
+        a(href="http://placehold.it/800x600")
+          img.img-responsive(src="http://placehold.it/800x600", alt="placeholder image", title="placeholder image")
+        // Here's how you add a caption
+        .carousel-caption
+          h4 You can add captions
+          p
+            | Kudos to 
+            a(href="#", target="_blank") Author Link 
+            | for the wonderful illustrations!
+        // /caption
+      // ////////// end of Carousel Item 1 //////////
+      // ////////// Carousel Item 2 //////////
+      .item.gallery-popup
+        a(href="http://placehold.it/800x600")
+          img.img-responsive(src="http://placehold.it/800x600", alt="placeholder image", title="placeholder image")
+      // ////////// end of Carousel Item 2 //////////
+    // Carousel navigation arrows
+    a.carousel-control.fui-arrow-left.left(href="#myCarousel", data-slide="prev")
+    a.carousel-control.fui-arrow-right.right(href="#myCarousel", data-slide="next")
+  // ////////// end of CAROUSEL SLIDER //////////
