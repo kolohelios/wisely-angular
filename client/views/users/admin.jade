@@ -1,0 +1,40 @@
+section
+  .container
+    .row
+      .col-xs-12.text-center
+        header
+          h3 User Administration
+        section(ng-hide='createOrEdit')
+          button(ng-click='createButton()') Create a User
+        section(ng-show='createOrEdit')
+          h4(ng-hide='editUser') Create a New User
+          h4(ng-show='editUser') Edit User
+          form(name='newUserForm')
+            input.form-control.input-sm(type='text' name='firstname' ng-model='user.firstName' placeholder='First name...')
+            input.form-control.input-sm(type='text' name='lastname' ng-model='user.lastName' placeholder='Last name...')
+            input.form-control.input-sm(type='email' name='email' ng-model='user.email' placeholder='Email address...')
+            input.form-control.input-sm(type='tel' name='phone' ng-model='user.phone' placeholder='Phone number...')
+            input.form-control.input-sm(type='password' name='phone' ng-model='password1' placeholder='Password...')
+            input.form-control.input-sm(type='password' name='phone' ng-model='password2' placeholder='Password validation...')
+            select.form-control.input-sm(name='phone' ng-model='user.role')
+              option(value=1) Client
+              option(value=255) Admin
+            button(ng-hide='editUser').btn.btn-inverse.btn-block(ng-click='create(user)') Create User
+            button(ng-show='editUser').btn.btn-inverse.btn-block(ng-click='save(user)') Save User
+        section
+          h4 List of Users
+          table.table.table-striped
+            thead
+              tr
+                th First Name
+                th Last Name
+                th Email
+                th Edit
+                th Delete
+            tbody
+              tr(ng-repeat='user in users')
+                th {{user.firstName}}
+                th {{user.lastName}}
+                th {{user.email}}
+                th: button.btn.btn-inverse.btn-block.btn-sm(ng-click='edit(user)'): i.fa.fa-pencil
+                th: button.btn.btn-inverse.btn-block.btn-sm(ng-click='remove(user)'): i.fa.fa-trash
