@@ -1,23 +1,16 @@
 'use strict';
 
 angular.module('wisely')
-.controller('LoginCtrl', function($scope, $state, $window, User){
-  $scope.name = $state.current.name;
-
-  $scope.submit = function(user){
-    if($scope.name === 'register'){
-      User.register(user)
-      .then(function(){
-        $state.go('login');
-      })
-      .catch(function(){
-        $window.swal({title: 'Registration Error', text: 'There was a problem with your registration. Please try again.', type: 'error'});
-      });
-    }else{
-      User.login(user)
-      .catch(function(){
-        $window.swal({title: 'Login Error', text: 'There was a problem with your login. Please try again.', type: 'error'});
-      });
-    }
+.controller('UserLoginCtrl', function($scope, $rootScope, $state, $window, User, $http){
+  $scope.login = function(user){
+    User.login(user)
+    .then(function(response){
+      $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
+      $rootScope.activeUser = response.data.user;
+      $state.go('home');
+    })
+    .catch(function(){
+      $window.swal({title: 'Login Error', text: 'There was a problem with your login. Please try again.', type: 'error'});
+    });
   };
 });
