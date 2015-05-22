@@ -1,5 +1,4 @@
 'use strict';
 
-angular.module('poseidon')
-.constant('firebaseUrl', 'https://__________.firebaseio.com/')
+angular.module('wisely')
 .constant('nodeUrl', 'http://localhost:8000');
