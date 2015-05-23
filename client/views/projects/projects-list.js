@@ -11,7 +11,11 @@ angular.module('wisely')
     });
   });
 
-  $scope.showProject = function(project){
-    $state.go('projects.show', {projectId: project});
+  $scope.edit = function(projectId){
+    $state.go('projects.edit', {projectId: projectId});
+  };
+
+  $scope.showProject = function(projectId){
+    $state.go('projects.show', {projectId: projectId});
   };
 });

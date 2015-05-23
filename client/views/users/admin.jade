@@ -18,8 +18,9 @@ section
             input.form-control.input-sm(type='tel' name='phone' ng-model='user.phone' placeholder='Phone number...')
             input.form-control.input-sm(type='password' name='phone' ng-model='password1' placeholder='Password...')
             input.form-control.input-sm(type='password' name='phone' ng-model='password2' placeholder='Password validation...')
-            select.input-sm.select2-choice(name='phone' ng-model='user.role')
+            select.input-sm.select2-choice(name='phone' ng-model='role')
               option(value=1) Client
+              option(value=127) Project Manager
               option(value=255) Admin
             button(ng-hide='editUser').btn.btn-inverse.btn-block(ng-click='create(user)') Create User
             button(ng-show='editUser').btn.btn-inverse.btn-block(ng-click='save(user)') Save User

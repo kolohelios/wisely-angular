@@ -3,18 +3,27 @@
 angular.module('wisely')
 .controller('UserAdminCtrl', function($scope, User, $window){
   $scope.createOrEdit = false;
+  $scope.role = 1;
 
   function mapRolesToString(users){
-    users = users.map(function(user){
-      switch(parseInt(user.role, 10)){
+    function userMap(userToMap){
+      switch(parseInt(userToMap.role, 10)){
         case 1:
-          user.role = 'Client';
+          userToMap.role = 'Client';
+          break;
+        case 127:
+          userToMap.role = 'Project Manager';
           break;
         case 255:
-          user.role = 'Admin';
+          userToMap.role = 'Admin';
       }
-      return user;
-    });
+      return userToMap;
+    }
+    if(Array.isArray(users)){
+      users = users.map(userMap);
+    }else{
+      userMap(users);
+    }
     return users;
   }
 
@@ -22,6 +31,9 @@ angular.module('wisely')
     switch(user.role){
       case 'Client':
         user.role = 1;
+        break;
+      case 'Project Manager':
+        user.role = 127;
         break;
       case 'Admin':
         user.role = 255;
@@ -41,23 +53,25 @@ angular.module('wisely')
 
   $scope.edit = function(user){
     $scope.editUser = $scope.createOrEdit = true;
+    var selectedUser = mapRoleToNumber(user);
+    $scope.role = selectedUser.role;
     $scope.user = user;
-    $scope.user = mapRoleToNumber(user);
   };
 
   $scope.save = function(user){
+    user.role = $scope.role;
     User.save(user)
     .then(function(response){
       var recordToUpdate = $window._.find($scope.users, function(userFromArray){
         return userFromArray._id === response.data._id;
       });
+      recordToUpdate = mapRolesToString(recordToUpdate);
       recordToUpdate = response.data;
-      console.log(recordToUpdate);
+      $scope.role = 1;
       $scope.user = {};
       $scope.editUser = $scope.createOrEdit = false;
     })
     .catch(function(response){
-      console.log(response);
       $window.swal({title: 'User Save Error', text: 'There was an error saving the user changes.', type: 'error'});
       $scope.user = {};
     });
@@ -75,14 +89,18 @@ angular.module('wisely')
   $scope.create = function(user){
     if($scope.password1 === $scope.password2){
       user.password = $scope.password1;
+      user.role = $scope.role;
       User.create(user)
       .then(function(response){
-        $scope.users.push(response.data);
+        var userObj = response.data;
+        userObj = mapRolesToString(userObj);
+        $scope.users.push(userObj);
+        $scope.role = 1;
         $scope.createOrEdit = false;
         $scope.user = {};
       })
-      .catch(function(response){
-        console.error(response);
+      .catch(function(){
+        $window.swal({title: 'User Creation Error', text: 'There was a problem creating a new user.', type: 'error'});
       });
     }else{
       $window.swal({title: 'Password Error', text: 'The passwords must match.', type: 'error'});
@@ -95,6 +113,7 @@ angular.module('wisely')
 
   $scope.cancel = function(){
     $scope.user = {};
+    $scope.role = 1;
     $scope.createOrEdit = false;
   };
 
