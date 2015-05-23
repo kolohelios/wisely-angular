@@ -1,5 +1,11 @@
 'use strict';
 
+$(document).ready(function () {
+  $(".navbar-nav li a").click(function(event) {
+    $(".navbar-collapse").collapse('hide');
+  });
+});
+
 angular.module('wisely')
 .controller('NavCtrl', function($rootScope, $scope, $state, $http, User, $window){
   function parseJWT(token){

@@ -6,8 +6,30 @@ section#section-pricing.pricing
           h3 Projects
         section
           .row
-            .col-md-4(ng-repeat='project in projects')
+            .col-md-4(ng-repeat='project in projects' ng-click='showProject(project._id)')
               div.pricing-box
-                div.pricing-heading {{project.name}}
-                div.pricing-price {{project.address}}
+                div.pricing-description
+                  img.img-responsive(ng-src='{{project.photo}}')
+                div.pricing-price {{project.name}}
+                div.pricing-heading
+                  p(ng-repeat='addressLine in project.address') {{addressLine}}
+                ul.pricing-list
+                  li 
+                    i.fa.fa-square-o(ng-show='project.isRemodel')
+                    i.fa.fa-check-square-o(ng-show='project.isRemodel === false')
+                    span &nbsp; Remodel
+                  li 
+                    i.fa.fa-square-o(ng-show='project.isActive')
+                    i.fa.fa-check-square-o(ng-show='project.isActive === false')
+                    span &nbsp; Active Record
+                  li 
+                    i.fa.fa-square-o(ng-show='project.choicesAvailable')
+                    i.fa.fa-check-square-o(ng-show='project.choicesAvailable === false')
+                    span &nbsp; Choices to Be Made
+                div.pricing-cta(ng-if='activeUser.role === 255')
+                  button.btn.btn-inverse.btn-md(ng-click='edit(project)'): i.fa.fa-pencil &nbsp; Edit
+                  button.btn.btn-inverse.btn-md(ng-click='remove(project)'): i.fa.fa-trash &nbsp; Delete
+                  
+                    
+                  
                 
