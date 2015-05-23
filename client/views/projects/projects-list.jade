@@ -27,8 +27,8 @@ section#section-pricing.pricing
                     i.fa.fa-check-square-o(ng-show='project.choicesAvailable === false')
                     span &nbsp; Choices to Be Made
                 div.pricing-cta(ng-if='activeUser.role === 255')
-                  button.btn.btn-inverse.btn-md(ng-click='edit(project)'): i.fa.fa-pencil &nbsp; Edit
-                  button.btn.btn-inverse.btn-md(ng-click='remove(project)'): i.fa.fa-trash &nbsp; Delete
+                  button.btn.btn-inverse.btn-md(ng-if='activeUser.role >= 127' ng-click='edit(project._id); $event.stopPropagation()'): i.fa.fa-pencil &nbsp; Edit
+                  button.btn.btn-inverse.btn-md(ng-if='activeUser.role >= 127' ng-click='remove(project._id); $event.stopPropagation()'): i.fa.fa-trash &nbsp; Delete
                   
                     
                   

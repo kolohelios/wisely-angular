@@ -15,5 +15,6 @@ angular.module('wisely')
   .state('projects', {url: '/projects', templateUrl: '/views/projects/projects.html', abstract: true})
   .state('projects.list', {url: '/', templateUrl: '/views/projects/projects-list.html', controller: 'ProjectsListCtrl'})
   .state('projects.show', {url: '/{projectId}', templateUrl: '/views/projects/projects-show.html', controller: 'ProjectsShowCtrl'})
-  .state('projects.new', {url: '/new', templateUrl: '/views/projects/projects-new.html', controller: 'ProjectsNewCtrl'});
+  .state('projects.new', {url: '/new', templateUrl: '/views/projects/projects-new.html', controller: 'ProjectsNewCtrl'})
+  .state('projects.edit', {url: '/{projectId}/edit', templateUrl: '/views/projects/projects-new.html', controller: 'ProjectsNewCtrl'});
 });
