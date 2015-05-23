@@ -7,6 +7,16 @@ angular.module('wisely')
     User.index()
     .then(function(response){
       $scope.users = response.data;
+      $scope.users = $scope.users.map(function(user){
+        switch(user.role){
+          case 1:
+            user.role = 'Client';
+            break;
+          case 255:
+            user.role = 'Admin';
+        }
+        return user;
+      });
     });
   }
   getUsers();
@@ -23,6 +33,7 @@ angular.module('wisely')
         return userFromArray._id === response.data._id;
       });
       recordToUpdate = response.data;
+      console.log(recordToUpdate);
       $scope.user = {};
       $scope.editUser = $scope.createOrEdit = false;
     })
@@ -66,5 +77,12 @@ angular.module('wisely')
   $scope.cancel = function(){
     $scope.user = {};
     $scope.createOrEdit = false;
+  };
+
+  $scope.sort = function(column){
+    if($scope.sortColumn === column){
+      $scope.sortReverse = !$scope.sortReverse;
+    }
+    $scope.sortColumn = column;
   };
 });

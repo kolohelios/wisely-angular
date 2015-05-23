@@ -14,8 +14,8 @@ header.header(ng-controller='NavCtrl')
           li: a(ui-sref='about'): i.fa.fa-info &nbsp; About
           li: a(ui-sref='faq'): i.fa.fa-question &nbsp; FAQ
           li: a(ui-sref='contact'): i.fa.fa-phone &nbsp; Contact
-          li: a(ui-sref='userAdmin'): i.fa.fa-users &nbsp; Admin
-          li: button.btn.btn-danger(ng-click='logout()'): i.fa.fa-sign-out &nbsp; {{displayName}}
+          li: a(ui-sref='userAdmin' ng-if='activeUser.role === 255'): i.fa.fa-users &nbsp; Admin
+          li: button.btn.btn-danger.btn-md(ng-click='logout()'): i.fa.fa-sign-out &nbsp; Log Out
         ul.nav.navbar-nav.navbar-right(ng-hide='activeUser')
           li: a(ui-sref='home'): i.fa.fa-home &nbsp; Home
           li: a(ui-sref='about'): i.fa.fa-info &nbsp; About

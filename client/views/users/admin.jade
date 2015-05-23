@@ -17,7 +17,7 @@ section
             input.form-control.input-sm(type='tel' name='phone' ng-model='user.phone' placeholder='Phone number...')
             input.form-control.input-sm(type='password' name='phone' ng-model='password1' placeholder='Password...')
             input.form-control.input-sm(type='password' name='phone' ng-model='password2' placeholder='Password validation...')
-            select.form-control.input-sm(name='phone' ng-model='user.role')
+            select.input-sm.select2-choice(name='phone' ng-model='user.role')
               option(value=1) Client
               option(value=255) Admin
             button(ng-hide='editUser').btn.btn-inverse.btn-block(ng-click='create(user)') Create User
@@ -27,15 +27,19 @@ section
           table.table.table-striped
             thead
               tr
-                th First Name
-                th Last Name
-                th Email
+                th(ng-click='sort("lastName")') Name
+                th(ng-click='sort("email")') Email
+                th(ng-click='sort("phone")') Phone
+                th(ng-click='sort("role")') Role
+                th(ng-click='sort("createdAt")') Created
                 th Edit
                 th Delete
             tbody
-              tr(ng-repeat='user in users')
-                th {{user.firstName}}
-                th {{user.lastName}}
+              tr(ng-repeat='user in users | orderBy : sortColumn : sortReverse')
+                th {{user.firstName}} {{user.lastName}}
                 th {{user.email}}
+                th {{user.phone}}
+                th {{user.role}}
+                th {{user.createdAt | date:'dd-MMM-yyyy'}}
                 th: button.btn.btn-inverse.btn-block.btn-sm(ng-click='edit(user)'): i.fa.fa-pencil
                 th: button.btn.btn-inverse.btn-block.btn-sm(ng-click='remove(user)'): i.fa.fa-trash
