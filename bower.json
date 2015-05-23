@@ -16,6 +16,7 @@
     "bootstrap": "~3.3.4",
     "angular-ui-router": "~0.2.15",
     "sweetalert": "~1.0.0",
-    "flat-ui-pro": "/Users/jonathanedwards/Desktop/themeforest-5858084-booom-onepage-flat-ui-pro-bootstrap-3-template/booom_v2.2.2/"
+    "flat-ui-pro": "/Users/jonathanedwards/Desktop/themeforest-5858084-booom-onepage-flat-ui-pro-bootstrap-3-template/booom_v2.2.2/",
+    "angular-base64-upload": "~0.1.0"
   }
 }

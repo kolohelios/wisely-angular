@@ -1,0 +1,13 @@
+section#section-pricing.pricing
+  .container
+    .row
+      .col-xs-12.text-center
+        header
+          h3 Projects
+        section
+          .row
+            .col-md-4(ng-repeat='project in projects')
+              div.pricing-box
+                div.pricing-heading {{project.name}}
+                div.pricing-price {{project.address}}
+                
