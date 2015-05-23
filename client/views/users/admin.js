@@ -3,27 +3,46 @@
 angular.module('wisely')
 .controller('UserAdminCtrl', function($scope, User, $window){
   $scope.createOrEdit = false;
+
+  function mapRolesToString(users){
+    users = users.map(function(user){
+      switch(parseInt(user.role, 10)){
+        case 1:
+          user.role = 'Client';
+          break;
+        case 255:
+          user.role = 'Admin';
+      }
+      return user;
+    });
+    return users;
+  }
+
+  function mapRoleToNumber(user){
+    switch(user.role){
+      case 'Client':
+        user.role = 1;
+        break;
+      case 'Admin':
+        user.role = 255;
+    }
+    return user;
+  }
+
   function getUsers(){
     User.index()
     .then(function(response){
       $scope.users = response.data;
-      $scope.users = $scope.users.map(function(user){
-        switch(user.role){
-          case 1:
-            user.role = 'Client';
-            break;
-          case 255:
-            user.role = 'Admin';
-        }
-        return user;
-      });
+      $scope.users = mapRolesToString($scope.users);
     });
   }
+
   getUsers();
 
   $scope.edit = function(user){
     $scope.editUser = $scope.createOrEdit = true;
     $scope.user = user;
+    $scope.user = mapRoleToNumber(user);
   };
 
   $scope.save = function(user){
