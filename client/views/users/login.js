@@ -5,6 +5,7 @@ angular.module('wisely')
   $scope.login = function(user){
     User.login(user)
     .then(function(response){
+      $window.localStorage.wiselyJWTToken = response.data.token;
       $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
       $rootScope.activeUser = response.data.user;
       $state.go('home');
