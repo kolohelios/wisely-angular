@@ -12,12 +12,16 @@ angular.module('wisely')
     return $http.get(nodeUrl + '/collections');
   };
 
+  Collection.retrieve = function(collectionId){
+    return $http.get(nodeUrl + '/collections/' + collectionId);
+  };
+
   Collection.remove = function(collection){
     return $http.delete(nodeUrl + '/collections/' + collection._id + '/delete');
   };
 
   Collection.save = function(collection){
-    var o = angular.copy(project);
+    var o = angular.copy(collection);
     delete o.__v;
     delete o.createdAt;
     delete o._id;

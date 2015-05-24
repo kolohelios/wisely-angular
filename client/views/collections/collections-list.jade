@@ -1,1 +1,39 @@
-h3 Collections List
+section
+  .container
+    .row
+      .col-xs-12.text-center
+        header
+          h3 Create Collection
+        section
+          form(name='newCollectionForm')
+            input.form-control.input-sm(type='text' name='name' ng-model='collection.name' placeholder='Collection name...')
+            input.form-control.input-sm(type='text' name='costdriver' ng-model='collection.costDriver' placeholder='Cost driver...')
+            button(ng-hide='editCollection').btn.btn-inverse.btn-block(ng-click='create(project)') Create Collection
+            button(ng-show='editCollection').btn.btn-inverse.btn-block(ng-click='save(project)') Save Collection
+        header
+          h3 Collections
+        section
+          table.table.table-striped
+            thead
+              tr
+                th(ng-click='sort("name")') 
+                  i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "name"')
+                  i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "name"')
+                  span &nbsp; Name
+                th(ng-click='sort("costDriver")')
+                  i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "costDriver"')
+                  i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "costDriver"')
+                  span &nbsp; Cost Driver
+                th Rooms
+                th(ng-click='sort("items")')
+                  i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "items"')
+                  i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "items"')
+                  span &nbsp; Items
+            tbody
+              tr(ng-repeat='collection in collections | orderBy : sortColumn : sortReverse' ng-click='showCollection(collection._id)')
+                td {{collection.name}}
+                td {{collection.costDriver}}
+                td: ul
+                  li(ng-repeat='room in collection.rooms') {{room}}
+                td {{collection.items.length}}
+            

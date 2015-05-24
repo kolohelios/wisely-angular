@@ -1,1 +1,40 @@
-h3 Collections Show
+section
+  .container
+    .row
+      .col-xs-12.text-center
+        header
+          h3 {{collection.name | capitalize}} Collection
+        section
+          .row
+            .col-xs-6
+              p Cost driver: {{collection.costDriver}}
+            .col-xs-6
+              p Rooms:
+                br
+                span(ng-repeat='room in collection.rooms track by $index') {{room}} 
+                  span(ng-show='!($last)') |&nbsp;
+        section
+          table.table.table-striped
+            thead
+              tr
+                th(ng-click='sort("name")') 
+                  i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "name"')
+                  i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "name"')
+                  span &nbsp; Name
+                th Extended Description
+                th(ng-click='sort("costDriver")')
+                  i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "costDriver"')
+                  i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "costDriver"')
+                  span &nbsp; Cost Driver
+                th Materials Cost Per Unit
+                th(ng-click='sort("items")')
+                  i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "items"')
+                  i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "items"')
+                  span &nbsp; Labor Hours Per Unit
+            tbody
+              tr(ng-repeat='item in collection.items | orderBy : sortColumn : sortReverse' ng-click='showCollection(collection._id)')
+                td: img.img-responsive(ng-src='{{item.photo}}')
+                td {{item.name}}
+                td {{item.extdDesc}}
+                td {{item.materialPerUnit}}
+                td {{item.laborHrsPerUnit}}
