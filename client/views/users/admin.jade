@@ -38,10 +38,10 @@ section
                 th Delete
             tbody
               tr(ng-repeat='user in users | orderBy : sortColumn : sortReverse')
-                th {{user.firstName}} {{user.lastName}}
-                th {{user.email}}
-                th {{user.phone}}
-                th {{user.role}}
-                th {{user.createdAt | date:'dd-MMM-yyyy'}}
-                th: button.btn.btn-inverse.btn-block.btn-sm(ng-click='edit(user)'): i.fa.fa-pencil
-                th: button.btn.btn-inverse.btn-block.btn-sm(ng-click='remove(user)'): i.fa.fa-trash
+                td {{user.firstName}} {{user.lastName}}
+                td {{user.email}}
+                td {{user.phone}}
+                td {{user.role}}
+                td {{user.createdAt | date:'dd-MMM-yyyy'}}
+                td: button.btn.btn-inverse.btn-block.btn-sm(ng-click='edit(user)'): i.fa.fa-pencil
+                td: button.btn.btn-inverse.btn-block.btn-sm(ng-click='remove(user)'): i.fa.fa-trash
