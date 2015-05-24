@@ -12,8 +12,12 @@ angular.module('wisely')
     return $http.get(nodeUrl + '/projects');
   };
 
-  Project.remove = function(project){
-    return $http.delete(nodeUrl + '/projects/' + project._id + '/delete');
+  Project.retrieve = function(projectId){
+    return $http.get(nodeUrl + '/projects/' + projectId);
+  };
+
+  Project.remove = function(projectId){
+    return $http.delete(nodeUrl + '/projects/' + projectId + '/delete');
   };
 
   Project.save = function(project){

@@ -1,32 +1,36 @@
-section#useradmin
+section
   .container
-    .row
+    .row(ng-if='step === "header"')
       .col-xs-12.text-center
         header
-          h3 Create Project
+          h3(ng-hide='editMode') Create Project
+          h3(ng-show='editMode') Edit Project
         section
-          form(name='newUserForm')
+          form(name='projectForm')
             input.form-control.input-sm(type='text' name='name' ng-model='project.name' placeholder='Project name...')
             textarea.form-control.input-sm(rows='2' name='address' ng-model='project.address' placeholder='Project address...')
             br
             label(for='remodel') &nbsp; Remodel?
             input(type='checkbox' name='remodel' ng-model='project.isRemodel')
+            input(type='file' ng-model='project.photo' base-sixty-four-input)
+            img.maxitemsize(base-sixty-four-image='project.photo')
             br
             input.form-control.input-sm(type='number' ng-model='project.baseCost' placeholder='Project base cost...')
-            button(ng-hide='editProject').btn.btn-inverse.btn-block(ng-click='create(project)') Create Project
-            button(ng-show='editProject').btn.btn-inverse.btn-block(ng-click='save(project)') Save Project
-    .row
+            button(ng-hide='editMode').btn.btn-inverse.btn-block(ng-click='create(project)') Create Project and Continue
+            button(ng-show='editMode').btn.btn-inverse.btn-block(ng-click='save(project)') Save Project and Continue
+    .row(ng-if='step === "collections"')
+      .col-xs-12.text-center
+        header
+          h3 Collections for {{project.name | capitalize}}
       .col-xs-12.col-sm-6.col-md-4.text-center
         section
           select.input-sm.select2-choice(ng-model='room')
-            option living room
-            option kitchen
-            option bathroom
-          button.btn.btn-inverse.btn-block(ng-click='addRoom(room)') Add Room
+            option(ng-repeat='room in config.rooms') {{room}}
+        button.btn.btn-inverse.btn-block(ng-click='addRoom(room)') Add Room
       .col-xs-12.col-sm-6.col-md-4.text-center
-        ul
-          li(ng-repeat='room in rooms') {{room}}
-    .row
+        ul.list-group
+          li.list-group-item(ng-click='setActiveRoom(room)' ng-repeat='room in rooms') {{room}}
+    .row(ng-if='step === "collections"')
       .col-xs-12.col-sm-6.col-md-4.text-center
         ul
           li(ng-repeat='collection in collections') {{collection.name}}
