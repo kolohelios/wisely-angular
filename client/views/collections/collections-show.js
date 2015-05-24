@@ -6,4 +6,11 @@ angular.module('wisely')
   .then(function(response){
     $scope.collection = response.data;
   });
+
+  $scope.sort = function(column){
+    if($scope.sortColumn === column){
+      $scope.sortReverse = !$scope.sortReverse;
+    }
+    $scope.sortColumn = column;
+  };
 });

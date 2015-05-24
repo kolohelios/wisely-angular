@@ -7,7 +7,7 @@ $(document).ready(function () {
 });
 
 angular.module('wisely')
-.controller('NavCtrl', function($rootScope, $scope, $state, $http, User, $window){
+.controller('NavCtrl', function($rootScope, $scope, $state, $http, User, $window, Configuration){
   function parseJWT(token){
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace('-', '+').replace('_', '/');
@@ -28,6 +28,11 @@ angular.module('wisely')
       $http.defaults.headers.common.Authorization = null;
     }
   }
+
+  Configuration.index()
+  .then(function(results){
+    $rootScope.configuration = results.data;
+  });
 
   $scope.logout = function(){
     $rootScope.activeUser = null;
