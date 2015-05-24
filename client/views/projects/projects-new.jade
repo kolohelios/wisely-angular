@@ -15,3 +15,19 @@ section#useradmin
             input.form-control.input-sm(type='number' ng-model='project.baseCost' placeholder='Project base cost...')
             button(ng-hide='editProject').btn.btn-inverse.btn-block(ng-click='create(project)') Create Project
             button(ng-show='editProject').btn.btn-inverse.btn-block(ng-click='save(project)') Save Project
+    .row
+      .col-xs-12.col-sm-6.col-md-4.text-center
+        section
+          select.input-sm.select2-choice(ng-model='room')
+            option living room
+            option kitchen
+            option bathroom
+          button.btn.btn-inverse.btn-block(ng-click='addRoom(room)') Add Room
+      .col-xs-12.col-sm-6.col-md-4.text-center
+        ul
+          li(ng-repeat='room in rooms') {{room}}
+    .row
+      .col-xs-12.col-sm-6.col-md-4.text-center
+        ul
+          li(ng-repeat='collection in collections') {{collection.name}}
+            
