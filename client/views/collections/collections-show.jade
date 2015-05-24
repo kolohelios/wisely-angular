@@ -9,32 +9,42 @@ section
             .col-xs-6
               p Cost driver: {{collection.costDriver}}
             .col-xs-6
-              p Rooms:
-                br
-                span(ng-repeat='room in collection.rooms track by $index') {{room}} 
-                  span(ng-show='!($last)') |&nbsp;
+              .row
+                p Rooms: &nbsp;
+                  span(ng-repeat='room in collection.rooms track by $index') {{room}} 
+                    span(ng-show='!($last)') |&nbsp;
+              .row
+                
         section
           table.table.table-striped
             thead
               tr
+                th Photo
                 th(ng-click='sort("name")') 
                   i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "name"')
                   i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "name"')
                   span &nbsp; Name
-                th Extended Description
-                th(ng-click='sort("costDriver")')
-                  i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "costDriver"')
-                  i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "costDriver"')
-                  span &nbsp; Cost Driver
-                th Materials Cost Per Unit
-                th(ng-click='sort("items")')
-                  i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "items"')
-                  i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "items"')
+                th.hidden-xs(ng-click='sort("extdDesc")')
+                  i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "extdDesc"')
+                  i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "extdDesc"')
+                  span &nbsp; Extended Description
+                th.hidden-xs(ng-click='sort("materialPerUnit")')
+                  i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "materialPerUnit"')
+                  i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "materialPerUnit"')
+                  span &nbsp; Materials Cost Per Unit
+                th.hidden-xs(ng-click='sort("laborHrsPerUnit")')
+                  i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "laborHrsPerUnit"')
+                  i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "laborHrsPerUnit"')
                   span &nbsp; Labor Hours Per Unit
+                th Edit / Delete
             tbody
               tr(ng-repeat='item in collection.items | orderBy : sortColumn : sortReverse' ng-click='showCollection(collection._id)')
-                td: img.img-responsive(ng-src='{{item.photo}}')
+                td: img.img-responsive.maxitemsize(ng-src='{{item.photo}}')
                 td {{item.name}}
-                td {{item.extdDesc}}
-                td {{item.materialPerUnit}}
-                td {{item.laborHrsPerUnit}}
+                td.hidden-xs {{item.extdDesc}}
+                td.hidden-xs {{item.materialPerUnit | currency : fractionSize : 0}}
+                td.hidden-xs {{item.laborHrsPerUnit}}
+                td
+                  button.btn.btn-block.btn-sm.btn-info(ng-click='edit(item)'): i.fa.fa-pencil
+                  button.btn.btn-block.btn-sm.btn-danger(ng-click='remove(item)'): i.fa.fa-trash
+                
