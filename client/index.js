@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('wisely', ['ui.router']);
+angular.module('wisely', ['ui.router', 'naif.base64']);

@@ -30,8 +30,10 @@ angular.module('wisely')
   }
 
   Configuration.index()
-  .then(function(results){
-    $rootScope.configuration = results.data;
+  .then(function(response){
+    $rootScope.config = {};
+    $rootScope.config.rooms = response.data[0].rooms;
+    $rootScope.config.roles = response.data[0].roles;
   });
 
   $scope.logout = function(){

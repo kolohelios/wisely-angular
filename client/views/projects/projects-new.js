@@ -3,11 +3,22 @@
 angular.module('wisely')
 .controller('ProjectsNewCtrl', function($scope, Project, $state, Collection){
   $scope.rooms = [];
+  $scope.step = 'header';
+  $scope.editMode = false;
+
+  if($state.params.projectId){
+    console.log($state.params.projectId);
+    $scope.editMode = true;
+    Project.retrieve($state.params.projectId)
+    .then(function(response){
+      $scope.project = response.data;
+    });
+  }
   $scope.create = function(project){
     project.isRemodel = project.isRemodel || false;
     Project.create(project)
     .then(function(){
-      $state.go('projects.list');
+      $scope.step = 'collections';
     })
     .catch(function(error){
       console.error('there was an error', error);
@@ -23,5 +34,18 @@ angular.module('wisely')
 
   $scope.addRoom = function(room){
     $scope.rooms.push(room);
+  };
+
+  $scope.setActiveRoom = function(room){
+    $scope.activeRoom = room;
+  };
+
+  $scope.save = function(project){
+    console.log(project);
+    Project.save(project)
+    .then(function(response){
+      console.log(response);
+      $scope.step = 'collections';
+    });
   };
 });
