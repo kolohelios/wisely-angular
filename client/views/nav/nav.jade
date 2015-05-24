@@ -15,7 +15,8 @@ header.header(ng-controller='NavCtrl')
           //- li: a(ui-sref='faq'): i.fa.fa-question &nbsp; FAQ
           //- li: a(ui-sref='contact'): i.fa.fa-phone &nbsp; Contact
           li: a(ui-sref='projects.new' ng-if='activeUser.role >= 127'): i.fa.fa-list-alt &nbsp; New Project
-          li: a(ui-sref='projects.list' ng-if='activeUser.role >= 127'): i.fa.fa-home &nbsp; Project List
+          li: a(ui-sref='projects.list' ng-if='activeUser.role >= 127'): i.fa.fa-home &nbsp; Projects
+          li: a(ui-sref='collections.list' ng-if='activeUser.role >= 127'): i.fa.fa-shopping-cart &nbsp; Collections
           li: a(ui-sref='userAdmin' ng-if='activeUser.role === 255'): i.fa.fa-users &nbsp; User Admin
           li: a(ng-click='logout()'): i.fa.fa-sign-out &nbsp; Log Out
         ul.nav.navbar-nav.navbar-right(ng-hide='activeUser')
