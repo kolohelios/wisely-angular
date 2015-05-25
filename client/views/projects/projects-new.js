@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('wisely')
-.controller('ProjectsNewCtrl', function($scope, Project, $state, Collection, User){
+.controller('ProjectsNewCtrl', function($scope, Project, $state, Collection, User, $window){
   $scope.project = {};
   $scope.project.rooms = [];
   $scope.step = 'header';
@@ -13,11 +13,18 @@ angular.module('wisely')
   });
 
   if($state.params.projectId){
-    console.log($state.params.projectId);
     $scope.editMode = true;
     Project.retrieve($state.params.projectId)
     .then(function(response){
       $scope.project = response.data;
+      var userToGetClientFrom = $window._.find($scope.users, function(user){
+        return user._id === $scope.project.client;
+      });
+      $scope.project.client = userToGetClientFrom;
+      var userToGetProjManFrom = $window._.find($scope.users, function(user){
+        return user._id === $scope.project.projMan;
+      });
+      $scope.project.projMan = userToGetProjManFrom;
     });
   }
   $scope.create = function(project){
@@ -30,13 +37,6 @@ angular.module('wisely')
       console.error('there was an error', error);
     });
   };
-  function getCollections(){
-    Collection.index()
-    .then(function(response){
-      $scope.collections = response.data;
-    });
-  }
-  getCollections();
 
   $scope.addRoom = function(room){
     var obj = {};
@@ -44,8 +44,16 @@ angular.module('wisely')
     $scope.project.rooms.push(obj);
   };
 
+  function getCollections(room){
+    Collection.fetchByRoom(room)
+    .then(function(response){
+      $scope.collections = response.data;
+    });
+  }
+
   $scope.setActiveRoom = function(room){
     $scope.activeRoom = room;
+    getCollections(room);
   };
 
   $scope.save = function(project){
