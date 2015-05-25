@@ -50,33 +50,36 @@ section
             option(ng-repeat='roomToSelect in config.rooms') {{roomToSelect}}
         button.btn.btn-inverse.btn-block(ng-click='addRoom(roomSelect)') Add Room
         ul.list-group
-          li.list-group-item(role='presentation' ng-click='setActiveRoom(room)' ng-repeat='room in project.rooms' ng-class='{"active": room === activeRoom}') 
-            button.btn-danger.btn-sm(ng-click='removeRoom(room)'): i.fa.fa-trash
+          li.list-group-item(role='presentation' ng-click='setActiveRoom(room)' ng-repeat='room in project.rooms track by $index' ng-class='{"active": room === activeRoom}') 
+            button.btn-danger.btn-sm(ng-click='removeRoom(room); $event.stopPropagation()'): i.fa.fa-trash
             span &nbsp; {{room.name}}
         button(ng-hide='editMode' ng-click='create(project)').btn.btn-inverse.btn-block Create Project and Continue
         button(ng-show='editMode' ng-click='save(project)').btn.btn-inverse.btn-block Save Project and Continue
       .col-xs-12.col-sm-6
         h4 Collections Added for Room
         ul.list-group
-          li.list-group-item(role='presentation' ng-repeat='addedCollection in activeRoom.itemCollections') 
-            //- button.btn-info.btn-sm(ng-click='removeCollection(collection)'): i.fa.fa-pencil
+          li.list-group-item(role='presentation' ng-repeat='addedCollection in activeRoom.itemCollections track by $index') 
+            button.btn-info.btn-sm(ng-click='editCollection(addedCollection)'): i.fa.fa-pencil
             button.btn-danger.btn-sm(ng-click='removeCollection(addedCollection.$index)'): i.fa.fa-trash
             span &nbsp; {{addedCollection.name}}
       .col-xs-12.col-sm-6
         h4 Collections to Choose From
         ul.list-group
-          li.list-group-item(role='presentation' ng-repeat='collection in collections' ng-click='setActiveCollection(collection)' ng-class='{"active": collection === collection}') {{collection.name}}
+          li.list-group-item(role='presentation' ng-repeat='collectionItem in collections' ng-click='setActiveCollection(collectionItem)' ng-class='{"active": collectionItem === collection}') {{collectionItem.name}}
     .row(ng-if='step === "collections"')
       .col-xs-12
         br
         p Cost driver:
           span {{$scope.collection.costDriver}}
         .form-group
-          label(for='numOfUnits')
-          input.form-control.input-sm(type='number' name='numofunits' ng-model='numOfUnits' placeholder='Number of units required...')
-        button(ng-click='saveCollectionChoices(collection.items)').btn.btn-inverse.btn-block Save Collection Choices
+          .row
+            .col-xs-6
+              input.form-control.input-sm(type='number' name='numofunits' ng-model='numOfUnits' placeholder='Number of units required...')
+            .col-xs-6
       .col-xs-12
-        br
+        button(ng-click='saveCollectionChoices(collection.items)').btn.btn-inverse.btn-block Save Choices
+      .col-xs-12
+        hr
         table.table.table-striped
           thead
             tr

@@ -56,6 +56,13 @@ angular.module('wisely')
     var obj = {};
     obj.name = room;
     $scope.project.rooms.push(obj);
+    $scope.save($scope.project);
+  };
+
+  $scope.removeRoom = function(roomIndex){
+    console.log(roomIndex);
+    $scope.project.rooms.splice(roomIndex, 1);
+    $scope.save($scope.project);
   };
 
   function getCollections(room){
@@ -82,6 +89,10 @@ angular.module('wisely')
   };
 
   $scope.setActiveCollection = function(collection){
+    $scope.collection = collection;
+  };
+
+  $scope.editCollection = function(collection){
     $scope.collection = collection;
   };
 
