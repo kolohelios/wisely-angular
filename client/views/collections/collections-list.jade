@@ -6,19 +6,27 @@ section
           h3 Collections
         section
           .row
-            section(ng-hide='createOrEditItem')
+            section(ng-hide='createOrEditCollection')
               button(ng-click='createButton()') Create a New Collection
-        section(ng-show='createOrEditItem')
+        section(ng-show='createOrEditCollection')
           .row
             .col-xs-12.col-sm-6
-              h4 Create a Collection
+              h4(ng-hide='editCollection') Create a Collection
+              h4(ng-show='editCollection') Edit Collection
               form(name='newCollectionForm')
-                input.form-control.input-sm(type='text' name='name' ng-model='collection.name' placeholder='Collection name...')
-                input.form-control.input-sm(type='text' name='costdriver' ng-model='collection.costDriver' placeholder='Cost driver...')
-                select.input-sm.select2-choice(ng-model='room')
-                  option(ng-repeat='room in config.rooms') {{room}}
+                .form-group
+                  label(for='name') Name
+                  input.form-control.input-sm(type='text' name='name' ng-model='collection.name' placeholder='Collection name...')
+                .form-group
+                  label(for='costdriver') Cost Driver
+                  input.form-control.input-sm(type='text' name='costdriver' ng-model='collection.costDriver' placeholder='Cost driver...')
+                .form-group
+                  label(for='rooms')
+                  select.input-sm.select2-choice(ng-model='room' name='rooms')
+                    option(ng-repeat='room in config.rooms') {{room}}
                 button.btn.btn-inverse.btn-block(ng-click='addRoom(room)') Add Room
             .col-xs-12.col-sm-6
+              h5 Rooms
               ul.list-group
                 li.list-group-item(ng-repeat='room in collection.rooms track by $index') {{room}}
           .row

@@ -69,12 +69,12 @@ section
                 th Edit / Delete
             tbody
               tr(ng-repeat='item in collection.items | orderBy : sortColumn : sortReverse' ng-click='showCollection(collection._id)')
-                td: img.img-responsive.maxitemsize(src='{{item.photo}}')
+                td: img.img-responsive.maxitemsize(ng-src='{{item.photo}}')
                 td {{item.name}}
                 td.hidden-xs {{item.extdDesc}}
                 td.hidden-xs {{item.materialPerUnit | currency : fractionSize : 0}}
                 td.hidden-xs {{item.laborHrsPerUnit}}
                 td
                   button.btn.btn-block.btn-sm.btn-info(ng-click='edit(item)'): i.fa.fa-pencil
-                  button.btn.btn-block.btn-sm.btn-danger(ng-click='remove(item.$index)'): i.fa.fa-trash
+                  button.btn.btn-block.btn-sm.btn-danger(ng-click='remove(item)'): i.fa.fa-trash
                 
