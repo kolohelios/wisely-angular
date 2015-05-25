@@ -20,6 +20,10 @@ angular.module('wisely')
     return $http.delete(nodeUrl + '/collections/' + collection._id + '/delete');
   };
 
+  Collection.fetchByRoom = function(room){
+    return $http.get(nodeUrl + '/collections?room=' + room.name);
+  };
+
   Collection.save = function(collection){
     var o = angular.copy(collection);
     delete o.__v;

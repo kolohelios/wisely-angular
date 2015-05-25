@@ -7,29 +7,37 @@ section
           h3(ng-show='editMode') Edit Project
         section
           form(name='projectForm')
-            .form-group
-              label(for='name') Name
-              input.form-control.input-sm(type='text' name='name' ng-model='project.name' placeholder='Project name...')
-            .form-group
-              label(for='address') Address
-              textarea.form-control.input-sm(rows='2' name='address' ng-model='project.address' placeholder='Project address...')
-            .form-group
-              label(for='remodel') &nbsp; Remodel?
-              input(type='checkbox' name='remodel' ng-model='project.isRemodel')
-            .form-group
-              input(type='file' ng-model='project.photo' base-sixty-four-input)
-              img.maxitemsize(base-sixty-four-image='project.photo')
-            .form-group
-              label(for='basecost')
-              input.form-control.input-sm(type='number' name='basecost' ng-model='project.baseCost' placeholder='Project base cost...')
-            .form-group
-              label(for='client')
-              select(ng-options='user.firstName + " " + user.lastName for user in users' name='client' ng-model='project.client').input-sm.select2-choice
-            .form-group
-              label(for='projman')
-              select(ng-options='user.firstName + " " + user.lastName for user in users' name='projman' ng-model='project.projMan').input-sm.select2-choice
-            button(ng-hide='editMode').btn.btn-inverse.btn-block(ng-click='create(project)') Create Project and Continue
-            button(ng-show='editMode').btn.btn-inverse.btn-block(ng-click='save(project)') Save Project and Continue
+          .row
+            .col-xs-12.col-sm-6
+              .form-group
+                label(for='name') Name
+                input.form-control.input-sm(type='text' name='name' ng-model='project.name' placeholder='Project name...')
+            .col-xs-12.col-sm-6
+              .form-group
+                label(for='address') Address
+                textarea.form-control.input-sm(rows='2' name='address' ng-model='project.address' placeholder='Project address...')
+            .col-xs-12.col-sm-6
+              .form-group
+                input(type='file' ng-model='project.photo' base-sixty-four-input)
+                img.maxitemsize(base-sixty-four-image='project.photo')
+              .form-group
+                label(for='remodel') &nbsp; Remodel?
+                input(type='checkbox' name='remodel' ng-model='project.isRemodel')
+            .col-xs-12.col-sm-6
+              .form-group
+                label(for='basecost') Base Cost
+                input.form-control.input-sm(type='number' name='basecost' ng-model='project.baseCost' placeholder='Project base cost...')
+            .col-xs-12.col-sm-6
+              .form-group
+                label(for='client') Client
+                select(ng-options='user.firstName + " " + user.lastName for user in users' name='client' ng-model='project.client').input-sm.select2-choice
+            .col-xs-12.col-sm-6
+              .form-group
+                label(for='projman') Project Manager
+                select(ng-options='user.firstName + " " + user.lastName for user in users' name='projman' ng-model='project.projMan').input-sm.select2-choice
+            .col-xs-12
+              button(ng-hide='editMode').btn.btn-inverse.btn-block(ng-click='create(project)') Create Project and Continue
+              button(ng-show='editMode').btn.btn-inverse.btn-block(ng-click='save(project)') Save Project and Continue
     .row(ng-if='step === "collections"')
       .col-xs-12.text-center
         header
@@ -47,6 +55,7 @@ section
         button(ng-hide='editMode').btn.btn-inverse.btn-block(ng-click='create(project)') Create Project and Continue
         button(ng-show='editMode').btn.btn-inverse.btn-block(ng-click='save(project)') Save Project and Continue
       .col-xs-12.col-sm-6.text-center
+        h4 Collections
         ul
           li(ng-repeat='collection in collections' ng-click='setActiveCollection(collection)') {{collection.name}}
     .row(ng-if='step === "collections"')
