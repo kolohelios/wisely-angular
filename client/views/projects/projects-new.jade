@@ -9,12 +9,10 @@ section
           form(name='projectForm')
             input.form-control.input-sm(type='text' name='name' ng-model='project.name' placeholder='Project name...')
             textarea.form-control.input-sm(rows='2' name='address' ng-model='project.address' placeholder='Project address...')
-            br
             label(for='remodel') &nbsp; Remodel?
             input(type='checkbox' name='remodel' ng-model='project.isRemodel')
             input(type='file' ng-model='project.photo' base-sixty-four-input)
             img.maxitemsize(base-sixty-four-image='project.photo')
-            br
             input.form-control.input-sm(type='number' ng-model='project.baseCost' placeholder='Project base cost...')
             button(ng-hide='editMode').btn.btn-inverse.btn-block(ng-click='create(project)') Create Project and Continue
             button(ng-show='editMode').btn.btn-inverse.btn-block(ng-click='save(project)') Save Project and Continue

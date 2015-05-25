@@ -4,14 +4,15 @@ angular.module('wisely')
 .controller('CollectionsListCtrl', function(Collection, $scope, $state, $window){
   $scope.collection = {};
   $scope.collection.rooms = [];
-  $scope.createOrEditItem = false;
+  $scope.editCollection = false;
+  $scope.createOrEditCollection = false;
   Collection.index()
   .then(function(response){
     $scope.collections = response.data;
   });
 
   $scope.createButton = function(){
-    $scope.createOrEditItem = true;
+    $scope.createOrEditCollection = true;
   };
 
   $scope.sort = function(column){
@@ -30,7 +31,21 @@ angular.module('wisely')
     .then(function(response){
       $scope.collections.push(response.data);
       $scope.collecion = {};
-      $scope.createOrEditItem = false;
+      $scope.createOrEditCollection = false;
+    });
+  };
+
+  $scope.save = function(collection){
+    Collection.save(collection)
+    .then(function(response){
+      var collectionToUpdate = $window._.find($scope.collections, function(collectionToSearch){
+        return collection.$index === collectionToSearch.$index;
+      });
+      collectionToUpdate = collection;
+      $scope.collection = {};
+      $scope.editCollection = false;
+      $scope.createOrEditCollection = false;
+      $scope.collection.rooms = [];
     });
   };
 
@@ -45,7 +60,9 @@ angular.module('wisely')
 
   $scope.edit = function(collection){
     $scope.collection = collection;
-  }
+    $scope.createOrEditCollection = true;
+    $scope.editCollection = true;
+  };
 
   $scope.addRoom = function(room){
     $scope.collection.rooms.push(room);

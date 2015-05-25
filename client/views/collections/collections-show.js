@@ -38,23 +38,25 @@ angular.module('wisely')
     Collection.save($scope.collection)
     .then(function(response){
       $scope.collection = response.data;
-      $scope.item = {};
+      $scope.itemForm = {};
       $scope.editItem = false;
       $scope.createOrEditItem = false;
     });
   };
 
-  $scope.remove = function(itemIndex){
-    $scope.collection.items.splice(itemIndex, 1);
+  $scope.remove = function(item){
+    $window._.remove($scope.collection.items, function(itemFromArray){
+      return itemFromArray._id === item._id;
+    });
     Collection.save($scope.collection)
     .then(function(){
+
     });
   };
 
   $scope.cancel = function(){
     $scope.itemForm = {};
     $scope.itemForm.photo = '';
-    $scope.item.photo = '';
     $scope.createOrEditItem = false;
   };
 
