@@ -14,6 +14,8 @@ section
             input(type='file' ng-model='project.photo' base-sixty-four-input)
             img.maxitemsize(base-sixty-four-image='project.photo')
             input.form-control.input-sm(type='number' ng-model='project.baseCost' placeholder='Project base cost...')
+            select(ng-options='user.firstName + " " + user.lastName for user in users' ng-model='project.client').input-sm.select2-choice
+            select(ng-options='user.firstName + " " + user.lastName for user in users' ng-model='project.projMan').input-sm.select2-choice
             button(ng-hide='editMode').btn.btn-inverse.btn-block(ng-click='create(project)') Create Project and Continue
             button(ng-show='editMode').btn.btn-inverse.btn-block(ng-click='save(project)') Save Project and Continue
     .row(ng-if='step === "collections"')

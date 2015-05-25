@@ -1,10 +1,15 @@
 'use strict';
 
 angular.module('wisely')
-.controller('ProjectsNewCtrl', function($scope, Project, $state, Collection){
+.controller('ProjectsNewCtrl', function($scope, Project, $state, Collection, User){
   $scope.rooms = [];
   $scope.step = 'header';
   $scope.editMode = false;
+
+  User.index()
+  .then(function(response){
+    $scope.users = response.data;
+  });
 
   if($state.params.projectId){
     console.log($state.params.projectId);
