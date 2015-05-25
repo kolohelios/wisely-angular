@@ -28,7 +28,7 @@ section
             .col-xs-12.col-sm-6
               h5 Rooms
               ul.list-group
-                li.list-group-item(ng-repeat='room in collection.rooms track by $index') {{room}}
+                li.list-group-item(ng-repeat='room in collection.rooms | orderBy: room') {{room}}
           .row
             .col-xs-12
               br
@@ -58,7 +58,7 @@ section
                 td {{collection.name}}
                 td {{collection.costDriver}}
                 td: ul
-                  li(ng-repeat='room in collection.rooms') {{room}}
+                  li(ng-repeat='room in collection.rooms | orderBy: room') {{room}}
                 td {{collection.items.length}}
                 td: button.btn.btn-inverse.btn-block.btn-sm(ng-click='edit(collection); $event.stopPropagation()'): i.fa.fa-pencil
                 td: button.btn.btn-inverse.btn-block.btn-sm(ng-click='remove(collection); $event.stopPropagation()'): i.fa.fa-trash

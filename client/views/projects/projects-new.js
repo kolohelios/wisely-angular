@@ -7,16 +7,37 @@ angular.module('wisely')
   $scope.step = 'header';
   $scope.editMode = false;
 
+  function getEditRecord(){
+    if($state.params.projectId){
+      $scope.editMode = true;
+      Project.retrieve($state.params.projectId)
+      .then(function(response){
+        $scope.project = response.data;
+        var userToGetClientFrom = $window._.find($scope.users, function(user){
+          return user._id === $scope.project.client;
+        });
+        $scope.project.client = userToGetClientFrom;
+        var userToGetProjManFrom = $window._.find($scope.users, function(user){
+          return user._id === $scope.project.projMan;
+        });
+        $scope.project.projMan = userToGetProjManFrom;
+      });
+    }
+  }
+
   User.index()
   .then(function(response){
     $scope.users = response.data;
+    getEditRecord();
   });
 
-  if($state.params.projectId){
-    $scope.editMode = true;
-    Project.retrieve($state.params.projectId)
+  $scope.create = function(project){
+    project.isRemodel = project.isRemodel || false;
+    Project.create(project)
     .then(function(response){
       $scope.project = response.data;
+      $scope.step = 'collections';
+      $scope.editMode = true;
       var userToGetClientFrom = $window._.find($scope.users, function(user){
         return user._id === $scope.project.client;
       });
@@ -25,13 +46,6 @@ angular.module('wisely')
         return user._id === $scope.project.projMan;
       });
       $scope.project.projMan = userToGetProjManFrom;
-    });
-  }
-  $scope.create = function(project){
-    project.isRemodel = project.isRemodel || false;
-    Project.create(project)
-    .then(function(){
-      $scope.step = 'collections';
     })
     .catch(function(error){
       console.error('there was an error', error);
@@ -57,15 +71,37 @@ angular.module('wisely')
   };
 
   $scope.save = function(project){
-    console.log(project);
     Project.save(project)
-    .then(function(response){
-      console.log(response);
+    .then(function(){
       $scope.step = 'collections';
     });
   };
 
+  $scope.editHeader = function(){
+    $scope.step = 'header';
+  };
+
   $scope.setActiveCollection = function(collection){
     $scope.collection = collection;
+  };
+
+  $scope.removeCollection = function(collectionIndex){
+    $scope.activeRoom.itemCollections.splice(collectionIndex, 1);
+    $scope.save($scope.project);
+  };
+
+  $scope.saveCollectionChoices = function(items){
+    var itemIds = items.map(function(itemToMap){
+      return itemToMap._id;
+    });
+    var newCollection = {
+      name: $scope.collection.name,
+      costDriver: $scope.collection.costDriver,
+      numOfUnits: $scope.numOfUnits,
+      items: itemIds
+    };
+    $scope.activeRoom.itemCollections = $scope.activeRoom.itemCollections ? $scope.activeRoom.itemCollections : [];
+    $scope.activeRoom.itemCollections.push(newCollection);
+    $scope.save($scope.project);
   };
 });
