@@ -15,16 +15,16 @@ section#section-pricing.pricing
                   p(ng-repeat='addressLine in project.address') {{addressLine}}
                 ul.pricing-list
                   li 
-                    i.fa.fa-square-o(ng-show='project.isRemodel')
-                    i.fa.fa-check-square-o(ng-show='project.isRemodel === false')
+                    i.fa.fa-square-o(ng-hide='project.isRemodel')
+                    i.fa.fa-check-square-o(ng-show='project.isRemodel')
                     span &nbsp; Remodel
                   li 
-                    i.fa.fa-square-o(ng-show='project.isActive')
-                    i.fa.fa-check-square-o(ng-show='project.isActive === false')
+                    i.fa.fa-square-o(ng-hide='project.isActive')
+                    i.fa.fa-check-square-o(ng-show='project.isActive')
                     span &nbsp; Active Record
                   li 
-                    i.fa.fa-square-o(ng-show='project.choicesAvailable')
-                    i.fa.fa-check-square-o(ng-show='project.choicesAvailable === false')
+                    i.fa.fa-square-o(ng-hide='project.choicesAvailable')
+                    i.fa.fa-check-square-o(ng-show='project.choicesAvailable')
                     span &nbsp; Choices to Be Made
                 div.pricing-cta(ng-if='activeUser.role === 255')
                   button.btn.btn-inverse.btn-md(ng-if='activeUser.role >= 127' ng-click='edit(project._id); $event.stopPropagation()'): i.fa.fa-pencil &nbsp; Edit

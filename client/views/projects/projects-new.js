@@ -2,7 +2,8 @@
 
 angular.module('wisely')
 .controller('ProjectsNewCtrl', function($scope, Project, $state, Collection, User){
-  $scope.rooms = [];
+  $scope.project = {};
+  $scope.project.rooms = [];
   $scope.step = 'header';
   $scope.editMode = false;
 
@@ -38,7 +39,9 @@ angular.module('wisely')
   getCollections();
 
   $scope.addRoom = function(room){
-    $scope.rooms.push(room);
+    var obj = {};
+    obj.name = room;
+    $scope.project.rooms.push(obj);
   };
 
   $scope.setActiveRoom = function(room){
@@ -52,5 +55,9 @@ angular.module('wisely')
       console.log(response);
       $scope.step = 'collections';
     });
+  };
+
+  $scope.setActiveCollection = function(collection){
+    $scope.collection = collection;
   };
 });
