@@ -24,6 +24,7 @@ angular.module('wisely')
     var o = angular.copy(project);
     delete o.__v;
     delete o.createdAt;
+    delete o.createdBy;
     delete o._id;
     return $http.put(nodeUrl + '/projects/' + project._id + '/update', o);
   };

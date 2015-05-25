@@ -17,30 +17,34 @@ section
             section(ng-hide='createOrEditItem')
               button(ng-click='createButton()') Create a New Item
         header(ng-show='createOrEditItem')
-          h3(ng-show='editItem') Edit Item
-          h3(ng-hide='editItem') Create Item
+          h4(ng-hide='editItem') Create a New Item
+            button.btn-danger.btn-sm(ng-click='cancel()') Cancel
+          h4(ng-show='editItem') Edit Item
+            button.btn-danger.btn-sm(ng-click='cancel()') Cancel
         section(ng-show='createOrEditItem')
           .row
+            form(name='editItemForm')
             .col-xs-12.col-sm-6
-              form(name='editItemForm')
-                .form-group
-                  label(for='name') Name
-                  input.form-control.input-sm(type='text' name='name' ng-model='item.name' placeholder='Item name...')
-                .form-group
-                  label(for='extddesc') Description
-                  input.form-control.input-sm(type='text' name='extddesc' ng-model='item.extdDesc' placeholder='Item description...')
-                .form-group
-                  label(for='materialcost') Material Cost Per Unit
-                  input.form-control.input-sm(type='number' name='materialcost' ng-model='item.materialPerUnit' placeholder='Item material cost per unit...')
-                .form-group
-                  label(for='laborhours') Labor Hours Per Unit
-                  input.form-control.input-sm(type='number' name='laborhours' ng-model='item.laborHrsPerUnit' placeholder='Item labor hours per unit...')
+              .form-group
+                label(for='name') Name
+                input.form-control.input-sm(type='text' name='name' ng-model='itemForm.name' placeholder='Item name...')
+              .form-group
+                label(for='extddesc') Description
+                input.form-control.input-sm(type='text' name='extddesc' ng-model='itemForm.extdDesc' placeholder='Item description...')
+              .form-group
+                label(for='materialcost') Material Cost Per Unit
+                input.form-control.input-sm(type='number' name='materialcost' ng-model='itemForm.materialPerUnit' placeholder='Item material cost per unit...')
+              .form-group
+                label(for='laborhours') Labor Hours Per Unit
+                input.form-control.input-sm(type='number' name='laborhours' ng-model='itemForm.laborHrsPerUnit' placeholder='Item labor hours per unit...')
             .col-sm-6.text-center
-              img.maxitemsize.img-responsive(base-sixty-four-image='item.photo')
-              input.form-control.input-sm(type='file' ng-model='item.photo' base-sixty-four-input)
+              .form-group
+                label(for='photo') Photo Link
+                img.maxitemsize(ng-src='{{itemForm.photo}}')
+                input.form-control.input-sm(type='url' name='photo' ng-model='itemForm.photo')
             .col-xs-12
-              button(ng-hide='editItem').btn.btn-inverse.btn-block(ng-click='create(item)') Create Item
-              button(ng-show='editItem').btn.btn-inverse.btn-block(ng-click='save(item)') Save Item
+              button(ng-hide='editItem').btn.btn-inverse.btn-block(ng-click='create(itemForm)') Create Item
+              button(ng-show='editItem').btn.btn-inverse.btn-block(ng-click='save(itemForm)') Save Item
         section
           table.table.table-striped
             thead
@@ -65,12 +69,12 @@ section
                 th Edit / Delete
             tbody
               tr(ng-repeat='item in collection.items | orderBy : sortColumn : sortReverse' ng-click='showCollection(collection._id)')
-                td: img.img-responsive.maxitemsize(ng-src='{{item.photo}}')
+                td: img.img-responsive.maxitemsize(src='{{item.photo}}')
                 td {{item.name}}
                 td.hidden-xs {{item.extdDesc}}
                 td.hidden-xs {{item.materialPerUnit | currency : fractionSize : 0}}
                 td.hidden-xs {{item.laborHrsPerUnit}}
                 td
                   button.btn.btn-block.btn-sm.btn-info(ng-click='edit(item)'): i.fa.fa-pencil
-                  button.btn.btn-block.btn-sm.btn-danger(ng-click='remove(item)'): i.fa.fa-trash
+                  button.btn.btn-block.btn-sm.btn-danger(ng-click='remove(item.$index)'): i.fa.fa-trash
                 
