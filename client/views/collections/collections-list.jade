@@ -3,20 +3,34 @@ section
     .row
       .col-xs-12.text-center
         header
-          h3 Create Collection
-        section
-          form(name='newCollectionForm')
-            input.form-control.input-sm(type='text' name='name' ng-model='collection.name' placeholder='Collection name...')
-            input.form-control.input-sm(type='text' name='costdriver' ng-model='collection.costDriver' placeholder='Cost driver...')
-            button(ng-hide='editCollection').btn.btn-inverse.btn-block(ng-click='create(project)') Create Collection
-            button(ng-show='editCollection').btn.btn-inverse.btn-block(ng-click='save(project)') Save Collection
-        header
           h3 Collections
+        section
+          .row
+            section(ng-hide='createOrEditItem')
+              button(ng-click='createButton()') Create a New Collection
+        section(ng-show='createOrEditItem')
+          .row
+            .col-xs-12.col-sm-6
+              h4 Create a Collection
+              form(name='newCollectionForm')
+                input.form-control.input-sm(type='text' name='name' ng-model='collection.name' placeholder='Collection name...')
+                input.form-control.input-sm(type='text' name='costdriver' ng-model='collection.costDriver' placeholder='Cost driver...')
+                select.input-sm.select2-choice(ng-model='room')
+                  option(ng-repeat='room in config.rooms') {{room}}
+                button.btn.btn-inverse.btn-block(ng-click='addRoom(room)') Add Room
+            .col-xs-12.col-sm-6
+              ul.list-group
+                li.list-group-item(ng-repeat='room in collection.rooms track by $index') {{room}}
+          .row
+            .col-xs-12
+              br
+              button(ng-hide='editCollection' ng-click='create(collection)').btn.btn-inverse.btn-block Create Collection
+              button(ng-show='editCollection' ng-click='save(collection)').btn.btn-inverse.btn-block Save Collection
         section
           table.table.table-striped
             thead
               tr
-                th(ng-click='sort("name")') 
+                th(ng-click='sort("name")')
                   i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "name"')
                   i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "name"')
                   span &nbsp; Name
@@ -29,6 +43,8 @@ section
                   i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "items"')
                   i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "items"')
                   span &nbsp; Items
+                th Edit
+                th Delete
             tbody
               tr(ng-repeat='collection in collections | orderBy : sortColumn : sortReverse' ng-click='showCollection(collection._id)')
                 td {{collection.name}}
@@ -36,4 +52,6 @@ section
                 td: ul
                   li(ng-repeat='room in collection.rooms') {{room}}
                 td {{collection.items.length}}
+                td: button.btn.btn-inverse.btn-block.btn-sm(ng-click='edit(collection); $event.stopPropagation()'): i.fa.fa-pencil
+                td: button.btn.btn-inverse.btn-block.btn-sm(ng-click='remove(collection); $event.stopPropagation()'): i.fa.fa-trash
             

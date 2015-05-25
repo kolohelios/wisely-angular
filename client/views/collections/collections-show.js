@@ -1,7 +1,9 @@
+/* eslint no-unused-vars: 0 */
+
 'use strict';
 
 angular.module('wisely')
-.controller('CollectionsShowCtrl', function($scope, Collection, $state){
+.controller('CollectionsShowCtrl', function($scope, Collection, $state, $window){
   $scope.editItem = false;
   $scope.createOrEditItem = false;
 
@@ -17,8 +19,47 @@ angular.module('wisely')
     $scope.sortColumn = column;
   };
 
+  $scope.createButton = function(){
+    $scope.createOrEditItem = true;
+  };
+
+  $scope.create = function(item){
+    $scope.collection.items.push(item);
+    Collection.save($scope.collection)
+    .then(function(){
+    });
+  };
+
+  $scope.save = function(item){
+    var itemToUpdate = $window._.find($scope.collection, function(itemToSearch){
+      return item.$index === itemToSearch.$index;
+    });
+    itemToUpdate = item;
+    Collection.save($scope.collection)
+    .then(function(response){
+      $scope.collection = response.data;
+      $scope.item = {};
+      $scope.editItem = false;
+      $scope.createOrEditItem = false;
+    });
+  };
+
+  $scope.remove = function(itemIndex){
+    $scope.collection.items.splice(itemIndex, 1);
+    Collection.save($scope.collection)
+    .then(function(){
+    });
+  };
+
+  $scope.cancel = function(){
+    $scope.itemForm = {};
+    $scope.itemForm.photo = '';
+    $scope.item.photo = '';
+    $scope.createOrEditItem = false;
+  };
+
   $scope.edit = function(item){
-    $scope.item = item;
+    $scope.itemForm = item;
     $scope.editItem = true;
     $scope.createOrEditItem = true;
   };
