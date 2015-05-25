@@ -7,31 +7,78 @@ section
           h3(ng-show='editMode') Edit Project
         section
           form(name='projectForm')
-            input.form-control.input-sm(type='text' name='name' ng-model='project.name' placeholder='Project name...')
-            textarea.form-control.input-sm(rows='2' name='address' ng-model='project.address' placeholder='Project address...')
-            label(for='remodel') &nbsp; Remodel?
-            input(type='checkbox' name='remodel' ng-model='project.isRemodel')
-            input(type='file' ng-model='project.photo' base-sixty-four-input)
-            img.maxitemsize(base-sixty-four-image='project.photo')
-            input.form-control.input-sm(type='number' ng-model='project.baseCost' placeholder='Project base cost...')
-            select(ng-options='user.firstName + " " + user.lastName for user in users' ng-model='project.client').input-sm.select2-choice
-            select(ng-options='user.firstName + " " + user.lastName for user in users' ng-model='project.projMan').input-sm.select2-choice
+            .form-group
+              label(for='name') Name
+              input.form-control.input-sm(type='text' name='name' ng-model='project.name' placeholder='Project name...')
+            .form-group
+              label(for='address') Address
+              textarea.form-control.input-sm(rows='2' name='address' ng-model='project.address' placeholder='Project address...')
+            .form-group
+              label(for='remodel') &nbsp; Remodel?
+              input(type='checkbox' name='remodel' ng-model='project.isRemodel')
+            .form-group
+              input(type='file' ng-model='project.photo' base-sixty-four-input)
+              img.maxitemsize(base-sixty-four-image='project.photo')
+            .form-group
+              label(for='basecost')
+              input.form-control.input-sm(type='number' name='basecost' ng-model='project.baseCost' placeholder='Project base cost...')
+            .form-group
+              label(for='client')
+              select(ng-options='user.firstName + " " + user.lastName for user in users' name='client' ng-model='project.client').input-sm.select2-choice
+            .form-group
+              label(for='projman')
+              select(ng-options='user.firstName + " " + user.lastName for user in users' name='projman' ng-model='project.projMan').input-sm.select2-choice
             button(ng-hide='editMode').btn.btn-inverse.btn-block(ng-click='create(project)') Create Project and Continue
             button(ng-show='editMode').btn.btn-inverse.btn-block(ng-click='save(project)') Save Project and Continue
     .row(ng-if='step === "collections"')
       .col-xs-12.text-center
         header
           h3 Collections for {{project.name | capitalize}}
-      .col-xs-12.col-sm-6.col-md-4.text-center
-        section
-          select.input-sm.select2-choice(ng-model='room')
-            option(ng-repeat='room in config.rooms') {{room}}
-        button.btn.btn-inverse.btn-block(ng-click='addRoom(room)') Add Room
-      .col-xs-12.col-sm-6.col-md-4.text-center
-        ul.list-group
-          li.list-group-item(ng-click='setActiveRoom(room)' ng-repeat='room in rooms') {{room}}
     .row(ng-if='step === "collections"')
-      .col-xs-12.col-sm-6.col-md-4.text-center
+      .col-xs-12.col-sm-6
+        section
+          select.input-sm.select2-choice(ng-model='roomSelect')
+            option(ng-repeat='roomToSelect in config.rooms') {{roomToSelect}}
+        button.btn.btn-inverse.btn-block(ng-click='addRoom(roomSelect)') Add Room
+        ul.list-group
+          li.list-group-item(role='presentation' ng-click='setActiveRoom(room)' ng-repeat='room in project.rooms') 
+            button.btn-danger.btn-sm(ng-click='removeRoom(room)'): i.fa.fa-trash
+            span &nbsp; {{room.name}}
+        button(ng-hide='editMode').btn.btn-inverse.btn-block(ng-click='create(project)') Create Project and Continue
+        button(ng-show='editMode').btn.btn-inverse.btn-block(ng-click='save(project)') Save Project and Continue
+      .col-xs-12.col-sm-6.text-center
         ul
-          li(ng-repeat='collection in collections') {{collection.name}}
+          li(ng-repeat='collection in collections' ng-click='setActiveCollection(collection)') {{collection.name}}
+    .row(ng-if='step === "collections"')
+      .col-xs-12
+        table.table.table-striped
+          thead
+            tr
+              th Photo
+              th(ng-click='sort("name")') 
+                i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "name"')
+                i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "name"')
+                span &nbsp; Name
+              th.hidden-xs(ng-click='sort("extdDesc")')
+                i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "extdDesc"')
+                i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "extdDesc"')
+                span &nbsp; Extended Description
+              th.hidden-xs(ng-click='sort("materialPerUnit")')
+                i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "materialPerUnit"')
+                i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "materialPerUnit"')
+                span &nbsp; Materials Cost Per Unit
+              th.hidden-xs(ng-click='sort("laborHrsPerUnit")')
+                i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "laborHrsPerUnit"')
+                i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "laborHrsPerUnit"')
+                span &nbsp; Labor Hours Per Unit
+              th Include in Choices
+          tbody
+            tr(ng-repeat='item in collection.items | orderBy : sortColumn : sortReverse' ng-click='showCollection(collection._id)')
+              td: img.img-responsive.maxitemsize(ng-src='{{item.photo}}')
+              td {{item.name}}
+              td.hidden-xs {{item.extdDesc}}
+              td.hidden-xs {{item.materialPerUnit | currency : fractionSize : 0}}
+              td.hidden-xs {{item.laborHrsPerUnit}}
+              td: input(type='checkbox')
+        
             
