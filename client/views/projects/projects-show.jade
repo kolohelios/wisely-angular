@@ -14,28 +14,10 @@ section#section-info.info(ng-show='step === "header"')
         .col-xs-12
           br
           button.btn-hg(ng-click='getStarted()').btn.btn-inverse.btn-block Get Started
-section.text-center(ng-show='step === "collection"')
-  ul.nav.nav-tabs.nav-justified
-    li.roombutton.list-group-item(role='presentation' ng-repeat='room in project.rooms' ng-click='selectRoom(room)' ng-class='{"active": room === selectedRoom}') {{room.name}}&nbsp;&nbsp;
-      span.badge {{room.itemCollections.length}}
-  ul.nav.nav-tabs.nav-justified
-    li.roombutton.list-group-item(role='presentation' ng-repeat='collection in selectedRoom.itemCollections' ng-click='selectCollection(collection)' ng-class='{"active": collection === selectedCollection}') {{collection.name}}&nbsp;&nbsp;
-      span.badge {{collection.items.length}}
-#section-slideshow.info-section-gray(ng-show='step === "collection"')
+section(ng-show='step === "selection"')
   .container
     .row
-      .col-xs-12.col-md-6
-        section#section-pricing.pricing
-          .col-md-4(ng-repeat='item in selectedCollection.items')
-            div.pricing-box
-              div.pricing-description
-                img.img-responsive(ng-src='{{item.photo}}')
-              div.pricing-price {{item.name}}
-              div.pricing-heading
-                p {{determineCostImpact(selectedCollection, item._id) | currency : fractionSize : 0}}
-              div
-                input(type='checkbox')
-      .col-xs-12.col-md-6
+      .col-xs-12
         h3(ng-show='project.baseCost') Base cost: {{project.baseCost | currency : fractionSize : 0}}
         table.table.table-striped
           thead
@@ -48,3 +30,22 @@ section.text-center(ng-show='step === "collection"')
               td {{impact.room}}
               td {{impact.collection}}
               td {{impact.cost | currency : fractionSize : 0}}
+section.text-center(ng-show='step === "selection"')
+  ul.nav.nav-tabs.nav-justified
+    li.roombutton.list-group-item(role='presentation' ng-repeat='room in project.rooms' ng-click='selectRoom(room)' ng-class='{"active": room === selectedRoom}') {{room.name}}&nbsp;&nbsp;
+      span.badge(ng-show='room.itemCollections.length') {{room.itemCollections.length}}
+  ul.nav.nav-tabs.nav-justified
+    li.roombutton.list-group-item(role='presentation' ng-repeat='collection in selectedRoom.itemCollections' ng-click='selectCollection(collection)' ng-class='{"active": collection === selectedCollection}') {{collection.name}}&nbsp;&nbsp;
+      span.badge {{collection.items.length}}
+#section-slideshow.info-section-gray(ng-show='step === "collection"')
+      .col-xs-12
+        hr
+        section#section-pricing.pricing
+          .col-md-3(ng-repeat='item in selectedCollection.items' ng-click='selectItem(item)')
+            div.item-pricing-box.pricing-box(ng-class='{"unselected-item": selectedItem && selectedItem !== item, "selected-item": selectedItem && selectedItem === item}')
+              div.pricing-description
+                img.img-responsive(ng-src='{{item.photo}}')
+              div.pricing-price {{item.name}}
+              div.pricing-heading
+                p {{determineCostImpact(selectedCollection, item._id) | currency : fractionSize : 0}}
+              

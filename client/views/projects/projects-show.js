@@ -34,13 +34,23 @@ angular.module('wisely')
 
   $scope.selectRoom = function(room){
     $scope.selectedRoom = room;
+    $scope.selectedCollection = [];
   };
 
   $scope.selectCollection = function(collection){
     $scope.selectedCollection = collection;
+    $scope.step = 'collection';
   };
 
   $scope.getStarted = function(){
-    $scope.step = 'collection';
+    $scope.step = 'selection';
+  };
+
+  $scope.selectItem = function(item){
+    if($scope.selectedItem === item){
+      $scope.selectedItem = null;
+    }else{
+      $scope.selectedItem = item;
+    }
   };
 });
