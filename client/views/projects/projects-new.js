@@ -102,14 +102,14 @@ angular.module('wisely')
   };
 
   $scope.saveCollectionChoices = function(items){
-    var itemIds = items.map(function(itemToMap){
+    var itemsToInclude = items.filter(function(itemToMap){
       return itemToMap._id;
     });
     var newCollection = {
       name: $scope.collection.name,
       costDriver: $scope.collection.costDriver,
       numOfUnits: $scope.numOfUnits,
-      items: itemIds
+      items: itemsToInclude
     };
     $scope.activeRoom.itemCollections = $scope.activeRoom.itemCollections ? $scope.activeRoom.itemCollections : [];
     $scope.activeRoom.itemCollections.push(newCollection);
