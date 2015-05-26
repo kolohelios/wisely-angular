@@ -65,4 +65,8 @@ angular.module('wisely')
     $scope.editItem = true;
     $scope.createOrEditItem = true;
   };
+
+  $scope.editCollection = function(collectionId){
+    $state.go()
+  }
 });

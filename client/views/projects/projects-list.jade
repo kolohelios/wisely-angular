@@ -10,7 +10,7 @@ section#section-pricing.pricing
               div.pricing-box
                 div.pricing-description
                   img.img-responsive(base-sixty-four-image='project.photo')
-                div.pricing-price {{project.name}}
+                div.pricing-price {{project.name | capitalize}}
                 div.pricing-heading
                   p(ng-repeat='addressLine in project.address') {{addressLine}}
                 ul.pricing-list
