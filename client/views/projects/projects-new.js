@@ -59,10 +59,13 @@ angular.module('wisely')
     $scope.save($scope.project);
   };
 
-  $scope.removeRoom = function(roomIndex){
-    console.log(roomIndex);
-    $scope.project.rooms.splice(roomIndex, 1);
-    $scope.save($scope.project);
+  $scope.removeRoom = function(room){
+    $window._.remove($scope.project.rooms, function(roomToCheck){
+      return roomToCheck._id === room._id;
+    });
+    console.log(room);
+    // $scope.project.rooms.splice(room, 1);
+    // $scope.save($scope.project);
   };
 
   function getCollections(room){

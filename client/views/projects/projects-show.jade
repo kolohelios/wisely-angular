@@ -38,14 +38,16 @@ section.text-center(ng-show='step === "selection"')
     li.roombutton.list-group-item(role='presentation' ng-repeat='collection in selectedRoom.itemCollections' ng-click='selectCollection(collection)' ng-class='{"active": collection === selectedCollection}') {{collection.name}}&nbsp;&nbsp;
       span.badge {{collection.items.length}}
 #section-slideshow.info-section-gray(ng-show='step === "collection"')
+  .col-xs-12
+    hr
+    section#section-pricing.pricing
       .col-xs-12
-        hr
-        section#section-pricing.pricing
-          .col-md-3(ng-repeat='item in selectedCollection.items' ng-click='selectItem(item)')
-            div.item-pricing-box.pricing-box(ng-class='{"unselected-item": selectedItem && selectedItem !== item, "selected-item": selectedItem && selectedItem === item}')
-              div.pricing-description
-                img.img-responsive(ng-src='{{item.photo}}')
-              div.pricing-price {{item.name}}
-              div.pricing-heading
-                p {{determineCostImpact(selectedCollection, item._id) | currency : fractionSize : 0}}
+        button.btn-hg(ng-click='saveSelection()').btn.btn-inverse.btn-block Save Selection
+      .col-md-3(ng-repeat='item in selectedCollection.items' ng-click='selectItem(item)')
+        div.item-pricing-box.pricing-box(ng-class='{"unselected-item": selectedItem && selectedItem !== item, "selected-item": selectedItem && selectedItem === item}')
+          div.pricing-description
+            img.img-responsive(ng-src='{{item.photo}}')
+          div.pricing-price(ng-class='{"selected-item-color": selectedItem === item}') {{item.name}}
+          div.pricing-heading
+            p {{determineCostImpact(selectedCollection, item._id) | currency : fractionSize : 0}}
               

@@ -22,7 +22,6 @@ angular.module('wisely')
     $scope.project = response.data;
     $scope.project.rooms.forEach(function(room){
       room.itemCollections.forEach(function(collection){
-        console.log(collection);
         var obj = {};
         obj.room = room.name;
         obj.collection = collection.name;
@@ -52,5 +51,16 @@ angular.module('wisely')
     }else{
       $scope.selectedItem = item;
     }
+  };
+
+  $scope.saveSelection = function(){
+    delete $scope.project.client;
+    delete $scope.project.projMan;
+    $scope.selectedCollection.chosen = $scope.selectedItem._id;
+    console.log($scope.selectedItem._id);
+    Project.save($scope.project)
+    .then(function(results){
+      console.log(results.data);
+    });
   };
 });
