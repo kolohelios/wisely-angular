@@ -8,22 +8,37 @@ section
           button(ng-click='createButton()') Create a User
         section(ng-show='createOrEdit')
           h4(ng-hide='editUser') Create a New User
-            button.btn-danger.btn-sm(ng-click='cancel()') Cancel
+            button.btn-danger.btn-xs(ng-click='cancel()') Cancel
           h4(ng-show='editUser') Edit User
-            button.btn-danger.btn-sm(ng-click='cancel()') Cancel
+            button.btn-danger.btn-xs(ng-click='cancel()') Cancel
           form(name='newUserForm')
-            input.form-control.input-sm(type='text' name='firstname' ng-model='user.firstName' placeholder='First name...')
-            input.form-control.input-sm(type='text' name='lastname' ng-model='user.lastName' placeholder='Last name...')
-            input.form-control.input-sm(type='email' name='email' ng-model='user.email' placeholder='Email address...')
-            input.form-control.input-sm(type='tel' name='phone' ng-model='user.phone' placeholder='Phone number...')
-            input.form-control.input-sm(type='password' name='phone' ng-model='password1' placeholder='Password...')
-            input.form-control.input-sm(type='password' name='phone' ng-model='password2' placeholder='Password validation...')
-            select.input-sm.select2-choice(name='phone' ng-model='role')
-              option(value=1) Client
-              option(value=127) Project Manager
-              option(value=255) Admin
-            button(ng-hide='editUser').btn.btn-inverse.btn-block(ng-click='create(user)') Create User
-            button(ng-show='editUser').btn.btn-inverse.btn-block(ng-click='save(user)') Save User
+          .row.text-left
+            .col-xs-12.col-sm-6
+              label(for='firstname') First Name
+              input.form-control.input-sm(type='text' name='firstname' ng-model='user.firstName' placeholder='First name...')
+            .col-xs-12.col-sm-6
+              label(for='lastname') Last Name
+              input.form-control.input-sm(type='text' name='lastname' ng-model='user.lastName' placeholder='Last name...')
+            .col-xs-12.col-sm-6
+              label(for='email') Email
+              input.form-control.input-sm(type='email' name='email' ng-model='user.email' placeholder='Email address...')
+            .col-xs-12.col-sm-6
+              label(for='phone') Phone
+              input.form-control.input-sm(type='tel' name='phone' ng-model='user.phone' placeholder='Phone number...')
+            .col-xs-12.col-sm-6
+              label(for='password') Password
+              input.form-control.input-sm(type='password' name='phone' ng-model='password1' placeholder='Password...')
+              input.form-control.input-sm(type='password' name='phone' ng-model='password2' placeholder='Password validation...')
+            .col-xs-12.col-sm-6
+              label(for='role') Role
+              select.input-sm.select2-choice(name='role' ng-model='role')
+                option(value=1) Client
+                option(value=127) Project Manager
+                option(value=255) Admin
+            .col-xs-12
+              br
+              button(ng-hide='editUser').btn.btn-inverse.btn-block(ng-click='create(user)') Create User
+              button(ng-show='editUser').btn.btn-inverse.btn-block(ng-click='save(user)') Save User
         section
           h4 List of Users
           table.table.table-striped
