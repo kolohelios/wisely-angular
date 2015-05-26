@@ -71,7 +71,7 @@ angular.module('wisely')
       $scope.user = {};
       $scope.editUser = $scope.createOrEdit = false;
     })
-    .catch(function(response){
+    .catch(function(){
       $window.swal({title: 'User Save Error', text: 'There was an error saving the user changes.', type: 'error'});
       $scope.user = {};
     });

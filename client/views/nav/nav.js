@@ -1,8 +1,8 @@
 'use strict';
 
-$(document).ready(function () {
-  $(".navbar-nav li a").click(function(event) {
-    $(".navbar-collapse").collapse('hide');
+angular.element(document).ready(function(){
+  angular.element('.navbar-nav li a').click(function(){
+    angular.element('.navbar-collapse').collapse('hide');
   });
 });
 

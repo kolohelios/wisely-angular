@@ -37,7 +37,7 @@ angular.module('wisely')
 
   $scope.save = function(collection){
     Collection.save(collection)
-    .then(function(response){
+    .then(function(){
       var collectionToUpdate = $window._.find($scope.collections, function(collectionToSearch){
         return collection.$index === collectionToSearch.$index;
       });
