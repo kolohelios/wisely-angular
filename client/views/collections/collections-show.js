@@ -67,6 +67,6 @@ angular.module('wisely')
   };
 
   $scope.editCollection = function(collectionId){
-    $state.go()
-  }
+    // what should go here?
+  };
 });

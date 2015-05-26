@@ -24,73 +24,27 @@ section.text-center(ng-show='step === "collection"')
 #section-slideshow.info-section-gray(ng-show='step === "collection"')
   .container
     .row
-      .col-md-6
-        // ////////// CAROUSEL SLIDER //////////
-        // declaring the carousel slides
-        .myCarousel.carousel.slide
-          ol.carousel-indicators
-            li.active(data-target=".myCarousel", data-slide-to="0")
-            li(data-target=".myCarousel", data-slide-to="1")
-            li(data-target=".myCarousel", data-slide-to="2")
-          // The carousel items themselves
-          .carousel-inner
-            // ////////// Carousel Item 1 //////////
-            .active.item.gallery-popup
-              //- a(href="http://placehold.it/800x600")
-              img.img-responsive(src="http://placehold.it/800x600", alt="placeholder image", title="placeholder image")
-            .item.gallery-popup
-              //- a(href="http://placehold.it/800x600")
-              img.img-responsive(src="http://placehold.it/800x600", alt="placeholder image", title="placeholder image")
-              // Here's how you add a caption
-              .carousel-caption
-                h4 You can add captions
-                p
-                  | Kudos to 
-                  a(href="#", target="_blank") Author Link 
-                  | for the wonderful illustrations!
-              // /caption
-            // ////////// end of Carousel Item 1 //////////
-            // ////////// Carousel Item 2 //////////
-            .item.gallery-popup
-              a(href="http://placehold.it/800x600")
-                img.img-responsive(src="http://placehold.it/800x600", alt="placeholder image", title="placeholder image")
-            // ////////// end of Carousel Item 2 //////////
-          // Carousel navigation arrows
-          a.carousel-control.fui-arrow-left.left(href=".myCarousel", data-slide="prev")
-          a.carousel-control.fui-arrow-right.right(href=".myCarousel", data-slide="next")
-      // ////////// end of CAROUSEL SLIDER //////////
-      .col-md-6
+      .col-xs-12.col-md-6
+        section#section-pricing.pricing
+          .col-md-4(ng-repeat='item in selectedCollection.items')
+            div.pricing-box
+              div.pricing-description
+                img.img-responsive(ng-src='{{item.photo}}')
+              div.pricing-price {{item.name}}
+              div.pricing-heading
+                p {{determineCostImpact(selectedCollection, item._id) | currency : fractionSize : 0}}
+              div
+                input(type='checkbox')
+      .col-xs-12.col-md-6
         h3(ng-show='project.baseCost') Base cost: {{project.baseCost | currency : fractionSize : 0}}
-        ul
-        p.modal-trigger
-          | By the way, if the popover was still too small to show what you want, you can go with a full-blown 
-          a(data-toggle="modal", href="#myModal") modal window
-          | !
-        //- // ////////// MODAL WINDOW EXAMPLE //////////
-        //- #myModal.modal.fade(tabindex="-1", role="dialog", aria-hidden="true")
-        //-   .modal-dialog
-        //-     .modal-content
-        //-       .modal-header
-        //-         button.close(type="button", data-dismiss="modal", aria-hidden="true") &#215;
-        //-         h4.modal-title I am a modal window, and no one can beat me!
-        //-       .modal-body
-        //-         // Columns within the modal window
-        //-         .row
-        //-           .col-md-3
-        //-             img(src="img/icons/dynamite.svg", alt="", title="")
-        //-           .col-md-9
-        //-             p.lead
-        //-               | Booom! Now we"re talking. Imagine all the things you could say in a big modal window like this!
-        //-         p
-        //-           | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus, omnis, sunt illum et minima facilis rerum eaque ullam quasi aperiam soluta beatae vero atque pariatur ab ad temporibus accusamus necessitatibus.
-        //-       .modal-footer
-        //-         button.btn.btn-primary(type="button", data-dismiss="modal") Hell Yeah!
-        //-         button.btn.btn-danger(type="button", data-dismiss="modal") Close Window
-        //-     // /.modal-content
-        //-   // /.modal-dialog
-        //- // ////////// MODAL WINDOW EXAMPLE //////////
-        //- p
-        //-   | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde, vero voluptas delectus explicabo maxime ad qui incidunt! Saepe, dolor, consequatur, distinctio incidunt unde fuga expedita ducimus maiores tempora quis vitae?
-    // /row
-  // /container
-// /info-section-gray
+        table.table.table-striped
+          thead
+            tr
+              th Room
+              th Collection
+              th Cost
+          tbody
+            tr(ng-repeat='impact in captureImpacts | orderBy : cost') 
+              td {{impact.room}}
+              td {{impact.collection}}
+              td {{impact.cost | currency : fractionSize : 0}}
