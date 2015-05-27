@@ -70,7 +70,9 @@ angular.module('wisely')
     addCostImpactObject($scope.selectedRoom, $scope.selectedCollection);
     Project.save($scope.project)
     .then(function(results){
-      console.log(results.data.rooms);
+      $scope.impactTotal = $scope.captureImpacts.reduce(function(acc, curr){
+        return acc + curr.cost;
+      }, 0);
       $scope.step = 'selection';
     });
   };

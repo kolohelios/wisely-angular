@@ -1,7 +1,9 @@
 section
   .container
     .row
-      .col-xs-12.col-md-4.text-center.pull-right
+      .col-xs-4
+        img.feature-icon#logo(src='/assets/wisely-owl-lg.jpg')
+      .col-xs-8.text-center(ng-hide='activeUser')
         h3 Login
         form(name='userForm', novalidate)
           .form-group
@@ -10,13 +12,15 @@ section
             input.form-control(type='password', name='password', ng-model='user.password', placeholder='password')
           .form-group
             button.btn.btn-default(ng-click='login(user)') Login
-      .col-xs-12.col-md-8.text-center.pull-left
-        .row
-          .col-xs-12.col-md-6
-            img.feature-icon#logo(src='/assets/wisely-owl-lg.jpg')
-          .col-xs-12.col-md-6
-            section
-            section
-              h4 Choose Wisely
-              p For small home construction and remodeling companies that want to help their customers make decisions, wisely.
-  
+      .col-xs-8.text-center(ng-show='activeUser')
+        .col-xs-12
+          section
+          section
+            h4 Choose Wisely
+            p For small home construction and remodeling companies that want to help their customers make decisions, wisely.
+      .col-xs-12.text-center.pull-left(ng-hide='activeUser')
+        .col-xs-12
+          section
+          section
+            h4 Choose Wisely
+            p For small home construction and remodeling companies that want to help their customers make decisions, wisely.

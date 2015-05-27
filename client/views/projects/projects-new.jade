@@ -25,10 +25,6 @@ section
                 input(type='checkbox' name='remodel' ng-model='project.isRemodel')
             .col-xs-12.col-sm-6
               .form-group
-                label(for='basecost') Base Cost
-                input.form-control.input-sm(type='number' name='basecost' ng-model='project.baseCost' placeholder='Project base cost...')
-            .col-xs-12.col-sm-6
-              .form-group
                 label(for='client') Client
                 select(ng-options='user.firstName + " " + user.lastName for user in users' name='client' ng-model='project.client').input-sm.select2-choice
             .col-xs-12.col-sm-6
