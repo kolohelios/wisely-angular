@@ -18,7 +18,7 @@ section(ng-show='step === "selection"')
   .container
     .row
       .col-xs-12
-        //- h3(ng-show='project.baseCost') Base cost: {{project.baseCost | currency : fractionSize : 0}}
+        h3(ng-show='project.baseCost') Base cost: {{project.baseCost | currency : fractionSize : 0}}
         table.table.table-striped(ng-show='captureImpacts')
           thead
             tr
@@ -30,6 +30,11 @@ section(ng-show='step === "selection"')
               td {{impact.room}}
               td {{impact.collection}}
               td {{impact.cost | currency : fractionSize : 0}}
+          tfoot
+            tr
+              td
+              td
+              td {{impactTotal | currency : fractionSize : 0}}
 section.text-center(ng-show='step === "selection"')
   ul.nav.nav-tabs.nav-justified
     li.roombutton.list-group-item(role='presentation' ng-repeat='room in project.rooms' ng-click='selectRoom(room)' ng-class='{"active": room === selectedRoom}') {{room.name}}&nbsp;&nbsp;

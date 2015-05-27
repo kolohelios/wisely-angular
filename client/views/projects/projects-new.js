@@ -82,7 +82,16 @@ angular.module('wisely')
 
   $scope.save = function(project){
     Project.save(project)
-    .then(function(){
+    .then(function(response){
+      $scope.project = response.data;
+      var userToGetClientFrom = $window._.find($scope.users, function(user){
+        return user._id === $scope.project.client;
+      });
+      $scope.project.client = userToGetClientFrom;
+      var userToGetProjManFrom = $window._.find($scope.users, function(user){
+        return user._id === $scope.project.projMan;
+      });
+      $scope.project.projMan = userToGetProjManFrom;
       $scope.step = 'collections';
     });
   };
@@ -105,17 +114,22 @@ angular.module('wisely')
   };
 
   $scope.saveCollectionChoices = function(items){
-    var itemsToInclude = items.filter(function(itemToMap){
-      return itemToMap._id;
-    });
-    var newCollection = {
-      name: $scope.collection.name,
-      costDriver: $scope.collection.costDriver,
-      numOfUnits: $scope.numOfUnits,
-      items: itemsToInclude
-    };
-    $scope.activeRoom.itemCollections = $scope.activeRoom.itemCollections ? $scope.activeRoom.itemCollections : [];
-    $scope.activeRoom.itemCollections.push(newCollection);
-    $scope.save($scope.project);
+    console.log($scope.collection.numOfUnits);
+    if($scope.collection.numOfUnits > 0){
+      var itemsToInclude = items.filter(function(itemToMap){
+        return itemToMap._id;
+      });
+      var newCollection = {
+        name: $scope.collection.name,
+        costDriver: $scope.collection.costDriver,
+        numOfUnits: $scope.numOfUnits,
+        items: itemsToInclude
+      };
+      $scope.activeRoom.itemCollections = $scope.activeRoom.itemCollections ? $scope.activeRoom.itemCollections : [];
+      $scope.activeRoom.itemCollections.push(newCollection);
+      $scope.save($scope.project);
+    }else{
+      $window.swal({title: 'Collection Creation Error', text: 'You must choose a number of units.', type: 'error'});
+    }
   };
 });

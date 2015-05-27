@@ -70,11 +70,11 @@ section
       .col-xs-12
         br
         p Cost driver:
-          span {{$scope.collection.costDriver}}
+          span {{collection.costDriver}}
         .form-group
           .row
             .col-xs-6
-              input.form-control.input-sm(type='number' name='numofunits' ng-model='numOfUnits' placeholder='Number of units required...')
+              input.form-control.input-sm(type='number' name='numofunits' ng-model='collection.numOfUnits' placeholder='Number of units required...')
             .col-xs-6
       .col-xs-12
         button(ng-click='saveCollectionChoices(collection.items)').btn.btn-inverse.btn-block Save Choices
@@ -84,7 +84,7 @@ section
           thead
             tr
               th Photo
-              th(ng-click='sort("name")') 
+              th(ng-click='sort("name")')
                 i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "name"')
                 i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "name"')
                 span &nbsp; Name
@@ -109,5 +109,3 @@ section
               td.hidden-xs {{item.materialPerUnit | currency : fractionSize : 0}}
               td.hidden-xs {{item.laborHrsPerUnit}}
               td: input(type='checkbox' ng-model='item.checked')
-        
-            
