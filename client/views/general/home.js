@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('wisely')
-.controller('UserLoginCtrl', function($scope, $rootScope, $state, $window, User, $http, Project){
+.controller('HomeCtrl', function($scope, $rootScope, $state, $window, User, $http, Project){
   $scope.login = function(user){
     User.login(user)
     .then(function(response){
