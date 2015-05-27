@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('wisely')
-.controller('ProjectsShowCtrl', function($scope, Project, $state){
+.controller('ProjectsShowCtrl', function($scope, Project, $state, $window){
   $scope.step = 'header';
   $scope.captureImpacts = [];
 
@@ -17,16 +17,22 @@ angular.module('wisely')
     return cost;
   };
 
+  function addCostImpactObject(room, collection){
+    var obj = {};
+    obj.room = room.name;
+    obj.collection = collection.name;
+    obj.cost = $scope.determineCostImpact(collection);
+    if(obj.cost){
+      $scope.captureImpacts.push(obj);
+    }
+  }
+
   Project.retrieve($state.params.projectId)
   .then(function(response){
     $scope.project = response.data;
     $scope.project.rooms.forEach(function(room){
       room.itemCollections.forEach(function(collection){
-        var obj = {};
-        obj.room = room.name;
-        obj.collection = collection.name;
-        obj.cost = $scope.determineCostImpact(collection);
-        $scope.captureImpacts.push(obj);
+        addCostImpactObject(room, collection);
       });
     });
   });
@@ -56,11 +62,14 @@ angular.module('wisely')
   $scope.saveSelection = function(){
     delete $scope.project.client;
     delete $scope.project.projMan;
-    $scope.selectedCollection.chosen = $scope.selectedItem._id;
-    console.log($scope.selectedItem._id);
+    // console.log($scope.selectedCollection);
+    // console.log($scope.selectedItem);
+    // $scope.selectedCollection.chosen = $scope.selectedItem._id;
+    // addCostImpactObject($scope.selectedRoom, $scope.selectedCollection);
     Project.save($scope.project)
     .then(function(results){
-      console.log(results.data);
+      console.log(results);
+      $scope.step = 'selection';
     });
   };
 });
