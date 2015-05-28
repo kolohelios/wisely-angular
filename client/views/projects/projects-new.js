@@ -63,9 +63,6 @@ angular.module('wisely')
     $window._.remove($scope.project.rooms, function(roomToCheck){
       return roomToCheck._id === room._id;
     });
-    console.log(room);
-    // $scope.project.rooms.splice(room, 1);
-    // $scope.save($scope.project);
   };
 
   function getCollections(room){

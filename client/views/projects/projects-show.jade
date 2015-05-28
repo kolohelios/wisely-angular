@@ -8,8 +8,7 @@ section#section-info.info(ng-show='step === "header"')
         .col-md-6.pull-right.gallery-popup
           img.img-responsive(base-sixty-four-image='project.photo')
         .col-md-6.pull-left
-          h3 Photo w00t
-          p some text here
+          h5.address(ng-repeat='addressLine in address') {{addressLine}}
       .row
         .col-xs-12
           br
