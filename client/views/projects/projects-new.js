@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('wisely')
-.controller('ProjectsNewCtrl', function($scope, Project, $state, Collection, User, $window){
+.controller('ProjectsNewCtrl', function($scope, Project, $state, Collection, User, $window, Message){
   $scope.project = {};
   $scope.project.rooms = [];
   $scope.step = 'header';
@@ -131,5 +131,15 @@ angular.module('wisely')
     }else{
       $window.swal({title: 'Collection Creation Error', text: 'You must choose a number of units.', type: 'error'});
     }
+  };
+
+  $scope.releaseToClient = function(){
+    var number = $scope.project.client.phone;
+    console.log(number);
+    var tel = number.split('').filter(function(n){
+      return !isNaN(n);
+    });
+    tel = tel.join('');
+    Message.sendText({number: tel, message: 'hello from Wisely!'});
   };
 });

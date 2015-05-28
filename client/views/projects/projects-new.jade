@@ -38,7 +38,7 @@ section
       .col-xs-12.text-center
         header
           h3 Collections for {{project.name | capitalize}}
-          button.btn.btn-inverse(ng-click='editHeader()') Edit Header
+          button.btn.btn-inverse(ng-click='editHeader()') Edit Project
     .row(ng-if='step === "collections"')
       .col-xs-12.col-sm-6
         section
@@ -74,6 +74,7 @@ section
             .col-xs-6
       .col-xs-12
         button(ng-click='saveCollectionChoices(collection.items)').btn.btn-inverse.btn-block Save Choices
+        button(ng-click='releaseToClient()').btn.btn-inverse.btn-block Release to Client
       .col-xs-12
         hr
         table.table.table-striped
