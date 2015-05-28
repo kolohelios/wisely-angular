@@ -12,17 +12,17 @@ section
               .form-group
                 label(for='name') Name
                 input.form-control.input-sm(type='text' name='name' ng-model='project.name' placeholder='Project name...')
+              div.checkbox
+                label(for='remodel') Remodel?
+                input.form-control(type='checkbox' name='remodel' ng-model='project.isRemodel')
             .col-xs-12.col-sm-6
               .form-group
                 label(for='address') Address
                 textarea.form-control.input-sm(rows='2' name='address' ng-model='project.address' placeholder='Project address...')
             .col-xs-12.col-sm-6
               .form-group
-                input(type='file' ng-model='project.photo' base-sixty-four-input)
+                input.form-control(type='file' ng-model='project.photo' base-sixty-four-input)
                 img.maxitemsize(base-sixty-four-image='project.photo')
-              .form-group
-                label(for='remodel') &nbsp; Remodel?
-                input(type='checkbox' name='remodel' ng-model='project.isRemodel')
             .col-xs-12.col-sm-6
               .form-group
                 label(for='client') Client
@@ -37,8 +37,9 @@ section
     .row(ng-if='step === "collections"')
       .col-xs-12.text-center
         header
-          h3 Collections for {{project.name | capitalize}}
-          button.btn.btn-inverse(ng-click='editHeader()') Edit Project
+          h3 
+            span Collections for {{project.name | capitalize}}
+            button.btn.btn-inverse(ng-click='editHeader()') Edit Project
     .row(ng-if='step === "collections"')
       .col-xs-12.col-sm-6
         section

@@ -31,6 +31,7 @@ angular.module('wisely')
   Project.retrieve($state.params.projectId)
   .then(function(response){
     $scope.project = response.data;
+    $scope.address = $scope.project.address.split('\n');
     $scope.project.rooms.forEach(function(room){
       room.itemCollections.forEach(function(collection){
         addCostImpactObject(room, collection);
@@ -69,7 +70,7 @@ angular.module('wisely')
     $scope.selectedCollection.choice = $scope.selectedItem._id;
     addCostImpactObject($scope.selectedRoom, $scope.selectedCollection);
     Project.save($scope.project)
-    .then(function(results){
+    .then(function(){
       $scope.impactTotal = $scope.captureImpacts.reduce(function(acc, curr){
         return acc + curr.cost;
       }, 0);
