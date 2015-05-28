@@ -100,7 +100,7 @@ angular.module('wisely')
         $scope.user = {};
       })
       .catch(function(){
-        $window.swal({title: 'User Creation Error', text: 'There was a problem creating a new user.', type: 'error'});
+        $window.swal({title: 'User Creation Error', text: 'There was a problem creating a new user. Make sure an account doesn\'t already exist with this email address.', type: 'error'});
       });
     }else{
       $window.swal({title: 'Password Error', text: 'The passwords must match.', type: 'error'});

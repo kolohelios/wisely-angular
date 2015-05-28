@@ -25,10 +25,6 @@ section
                 input(type='checkbox' name='remodel' ng-model='project.isRemodel')
             .col-xs-12.col-sm-6
               .form-group
-                label(for='basecost') Base Cost
-                input.form-control.input-sm(type='number' name='basecost' ng-model='project.baseCost' placeholder='Project base cost...')
-            .col-xs-12.col-sm-6
-              .form-group
                 label(for='client') Client
                 select(ng-options='user.firstName + " " + user.lastName for user in users' name='client' ng-model='project.client').input-sm.select2-choice
             .col-xs-12.col-sm-6
@@ -42,7 +38,7 @@ section
       .col-xs-12.text-center
         header
           h3 Collections for {{project.name | capitalize}}
-          button.btn.btn-inverse(ng-click='editHeader()') Edit Header
+          button.btn.btn-inverse(ng-click='editHeader()') Edit Project
     .row(ng-if='step === "collections"')
       .col-xs-12.col-sm-6
         section
@@ -70,21 +66,22 @@ section
       .col-xs-12
         br
         p Cost driver:
-          span {{$scope.collection.costDriver}}
+          span {{collection.costDriver}}
         .form-group
           .row
             .col-xs-6
-              input.form-control.input-sm(type='number' name='numofunits' ng-model='numOfUnits' placeholder='Number of units required...')
+              input.form-control.input-sm(type='number' name='numofunits' ng-model='collection.numOfUnits' placeholder='Number of units required...')
             .col-xs-6
       .col-xs-12
         button(ng-click='saveCollectionChoices(collection.items)').btn.btn-inverse.btn-block Save Choices
+        button(ng-click='releaseToClient()').btn.btn-inverse.btn-block Release to Client
       .col-xs-12
         hr
         table.table.table-striped
           thead
             tr
               th Photo
-              th(ng-click='sort("name")') 
+              th(ng-click='sort("name")')
                 i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "name"')
                 i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "name"')
                 span &nbsp; Name
@@ -109,5 +106,3 @@ section
               td.hidden-xs {{item.materialPerUnit | currency : fractionSize : 0}}
               td.hidden-xs {{item.laborHrsPerUnit}}
               td: input(type='checkbox' ng-model='item.checked')
-        
-            
