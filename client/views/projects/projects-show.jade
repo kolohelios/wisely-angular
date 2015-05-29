@@ -34,9 +34,11 @@ section(ng-show='step === "selection"')
               td
               td {{impactTotal | currency : fractionSize : 0}}
 section.text-center(ng-show='step === "selection"')
+  h4 Room
   ul.nav.nav-tabs.nav-justified
     li.roombutton.list-group-item(role='presentation' ng-repeat='room in project.rooms' ng-click='selectRoom(room)' ng-class='{"active": room === selectedRoom}') {{room.name}}&nbsp;&nbsp;
       span.badge(ng-show='room.itemCollections.length') {{room.itemCollections.length}}
+  h4 Collection
   ul.nav.nav-tabs.nav-justified
     li.roombutton.list-group-item(role='presentation' ng-repeat='collection in selectedRoom.itemCollections' ng-click='selectCollection(collection)' ng-class='{"active": collection === selectedCollection}') {{collection.name}}&nbsp;&nbsp;
       span.badge {{collection.items.length}}

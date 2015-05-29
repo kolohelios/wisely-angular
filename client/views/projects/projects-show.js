@@ -9,10 +9,12 @@ angular.module('wisely')
     // item is an optional argument to be used in the absence of collection.chosen
     var cost;
     var itemIdToCost = itemId ? itemId : collection.choice;
+    console.log('itemId', itemIdToCost);
+    console.log('collection', collection);
     collection.items.forEach(function(itemToCheck){
       if(itemIdToCost === itemToCheck._id){
+        console.log(collection.numOfUnits, $scope.config.rates, itemToCheck.laborHrsPerUnit, itemToCheck.materialPerUnit);
         cost = collection.numOfUnits * ($scope.config.rates.labor * itemToCheck.laborHrsPerUnit + $scope.config.rates.multiplier * itemToCheck.materialPerUnit);
-        console.log(cost);
       }
     });
     return cost;
