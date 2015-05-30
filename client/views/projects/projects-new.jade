@@ -50,8 +50,6 @@ section
           li.list-group-item(role='presentation' ng-click='setActiveRoom(room)' ng-repeat='room in project.rooms track by $index' ng-class='{"active": room === activeRoom}') 
             button.btn-danger.btn-sm(ng-click='removeRoom(room); $event.stopPropagation()'): i.fa.fa-trash
             span &nbsp; {{room.name}}
-        button(ng-hide='editMode' ng-click='create(project)').btn.btn-inverse.btn-block Create Project and Continue
-        button(ng-show='editMode' ng-click='save(project)').btn.btn-inverse.btn-block Save Project and Continue
       .col-xs-12.col-sm-6
         h4 Collections Added for Room
         ul.list-group
@@ -71,7 +69,7 @@ section
         .form-group
           .row
             .col-xs-6
-              input.form-control.input-sm(type='number' name='numofunits' ng-model='collection.numOfUnits' placeholder='Number of units required...')
+              input.form-control.input-sm(type='number' name='numofunits' ng-model='numOfUnits' min='1' placeholder='Number of units required...')
             .col-xs-6
       .col-xs-12
         button(ng-click='saveCollectionChoices(collection.items)').btn.btn-inverse.btn-block Save Choices

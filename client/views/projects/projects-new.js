@@ -6,6 +6,7 @@ angular.module('wisely')
   $scope.project.rooms = [];
   $scope.step = 'header';
   $scope.editMode = false;
+  $scope.numOfUnits = 0;
 
   function getEditRecord(){
     if($state.params.projectId){
@@ -111,8 +112,8 @@ angular.module('wisely')
   };
 
   $scope.saveCollectionChoices = function(items){
-    console.log($scope.collection.numOfUnits);
-    if($scope.collection.numOfUnits > 0){
+    console.log('numOfUnits: ', $scope.numOfUnits);
+    if(parseFloat($scope.numOfUnits) > 0){
       var itemsToInclude = items.filter(function(itemToMap){
         return itemToMap._id;
       });
