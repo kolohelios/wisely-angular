@@ -44,8 +44,8 @@ section
                 img.maxitemsize(ng-src='{{itemForm.photo}}')
                 input.form-control.input-sm(type='url' name='photo' ng-model='itemForm.photo')
             .col-xs-12
-              button(ng-hide='editItem').btn.btn-inverse.btn-block(ng-click='create(itemForm)') Create Item
-              button(ng-show='editItem').btn.btn-inverse.btn-block(ng-click='save(itemForm)') Save Item
+              button(ng-hide='editItem' ng-click='create(itemForm)').btn.btn-inverse.btn-block Create Item
+              button(ng-show='editItem' ng-click='save(itemForm)').btn.btn-inverse.btn-block Save Item
         section
           table.table.table-striped
             thead

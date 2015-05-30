@@ -37,8 +37,8 @@ section
                 option(value=255) Admin
             .col-xs-12
               br
-              button(ng-hide='editUser').btn.btn-inverse.btn-block(ng-click='create(user)') Create User
-              button(ng-show='editUser').btn.btn-inverse.btn-block(ng-click='save(user)') Save User
+              button(ng-hide='editUser' ng-click='create(user)').btn.btn-inverse.btn-block Create User
+              button(ng-show='editUser' ng-click='save(user)').btn.btn-inverse.btn-block Save User
         section
           h4 List of Users
           table.table.table-striped
