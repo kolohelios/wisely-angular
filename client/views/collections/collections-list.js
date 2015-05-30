@@ -41,7 +41,7 @@ angular.module('wisely')
       var collectionToUpdate = $window._.find($scope.collections, function(collectionToSearch){
         return collection.$index === collectionToSearch.$index;
       });
-      collectionToUpdate = collection;
+      collection = collectionToUpdate;
       $scope.collection = {};
       $scope.editCollection = false;
       $scope.createOrEditCollection = false;

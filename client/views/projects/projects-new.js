@@ -49,7 +49,7 @@ angular.module('wisely')
       $scope.project.projMan = userToGetProjManFrom;
     })
     .catch(function(error){
-      console.error('there was an error', error);
+      $window.swal({title: 'Error Creating Project', text: error.data.message, type: 'error'});
     });
   };
 
@@ -91,6 +91,9 @@ angular.module('wisely')
       });
       $scope.project.projMan = userToGetProjManFrom;
       $scope.step = 'collections';
+    })
+    .catch(function(error){
+      $window.swal({title: 'Error Creating Project', text: error.data.message, type: 'error'});
     });
   };
 
@@ -112,15 +115,15 @@ angular.module('wisely')
   };
 
   $scope.saveCollectionChoices = function(items){
-    console.log('numOfUnits: ', $scope.numOfUnits);
-    if(parseFloat($scope.numOfUnits) > 0){
+    console.log('numOfUnits: ', $scope.collection.numOfUnits);
+    if(parseFloat($scope.collection.numOfUnits) > 0){
       var itemsToInclude = items.filter(function(itemToMap){
         return itemToMap._id;
       });
       var newCollection = {
         name: $scope.collection.name,
         costDriver: $scope.collection.costDriver,
-        numOfUnits: $scope.numOfUnits,
+        numOfUnits: $scope.collection.numOfUnits,
         items: itemsToInclude
       };
       $scope.activeRoom.itemCollections = $scope.activeRoom.itemCollections ? $scope.activeRoom.itemCollections : [];
