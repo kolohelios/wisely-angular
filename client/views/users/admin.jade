@@ -35,6 +35,11 @@ section
                 option(value=1) Client
                 option(value=127) Project Manager
                 option(value=255) Admin
+            .col-xs-12.col-sm-6
+              label(for='role') Contact Preference
+              select.input-sm.select2-choice(name='role' ng-model='user.contactPref')
+                option text
+                option e-mail
             .col-xs-12
               br
               button(ng-hide='editUser' ng-click='create(user)').btn.btn-inverse.btn-block Create User
@@ -48,6 +53,7 @@ section
                 th(ng-click='sort("email")') Email
                 th(ng-click='sort("phone")') Phone
                 th(ng-click='sort("role")') Role
+                th(ng-click='sort("contactPref")') Contact Pref
                 th(ng-click='sort("createdAt")') Created
                 th Edit
                 th Delete
@@ -57,6 +63,7 @@ section
                 td {{user.email}}
                 td {{user.phone}}
                 td {{user.role}}
+                td {{user.contactPref}}
                 td {{user.createdAt | date:'dd-MMM-yyyy'}}
                 td: button.btn.btn-inverse.btn-block.btn-sm(ng-click='edit(user)'): i.fa.fa-pencil
                 td: button.btn.btn-inverse.btn-block.btn-sm(ng-click='remove(user)'): i.fa.fa-trash
