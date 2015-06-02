@@ -1,4 +1,4 @@
 'use strict';
 
 angular.module('wisely')
-.constant('nodeUrl', 'http://localhost:8000');
+.constant('nodeUrl', 'http://52.26.47.56:8000');
