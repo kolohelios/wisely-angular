@@ -59,6 +59,11 @@ angular.module('wisely')
   };
 
   $scope.save = function(user){
+    if($scope.password1){
+      if($scope.password1 === $scope.password2){
+        user.password = $scope.password1;
+      }
+    }
     user.role = $scope.role;
     User.save(user)
     .then(function(response){
