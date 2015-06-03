@@ -4,6 +4,7 @@ angular.module('wisely')
 .controller('UserAdminCtrl', function($scope, User, $window){
   $scope.createOrEdit = false;
   $scope.role = 1;
+  $scope.sortReverse = false;
 
   function mapRolesToString(users){
     function userMap(userToMap){
@@ -62,6 +63,8 @@ angular.module('wisely')
     if($scope.password1){
       if($scope.password1 === $scope.password2){
         user.password = $scope.password1;
+      }else{
+        $window.swal({title: 'Password Error', text: 'The passwords must match.', type: 'error'});
       }
     }
     user.role = $scope.role;
@@ -126,6 +129,7 @@ angular.module('wisely')
     if($scope.sortColumn === column){
       $scope.sortReverse = !$scope.sortReverse;
     }
+    console.log($scope.sortReverse);
     $scope.sortColumn = column;
   };
 });
