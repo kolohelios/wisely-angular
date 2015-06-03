@@ -49,21 +49,45 @@ section
           table.table.table-striped
             thead
               tr
-                th(ng-click='sort("lastName")') Name
-                th(ng-click='sort("email")') Email
-                th(ng-click='sort("phone")') Phone
-                th(ng-click='sort("role")') Role
-                th(ng-click='sort("contactPref")') Contact Pref
-                th(ng-click='sort("createdAt")') Created
+                th
+                  span &nbsp;
+                  i.fa.fa-arrow-up(ng-if='sortColumn === "lastName" && sortReverse === true')
+                  i.fa.fa-arrow-down(ng-if='sortColumn === "lastName" && sortReverse === false')
+                  span(ng-click='sort("lastName")') Name
+                th.hidden-xs.visible-sm.visible-md.visible-lg
+                  span &nbsp;
+                  i.fa.fa-arrow-up(ng-if='sortColumn === "email" && sortReverse === true')
+                  i.fa.fa-arrow-down(ng-if='sortColumn === "email" && sortReverse === false')
+                  span(ng-click='sort("email")') Email
+                th.hidden-xs.hidden-sm.hidden-md.visible-lg
+                  span &nbsp;
+                  i.fa.fa-arrow-up(ng-if='sortColumn === "phone" && sortReverse === true')
+                  i.fa.fa-arrow-down(ng-if='sortColumn === "phone" && sortReverse === false')
+                  span(ng-click='sort("phone")') Phone
+                th
+                  span &nbsp;
+                  i.fa.fa-arrow-up(ng-if='sortColumn === "role" && sortReverse === true')
+                  i.fa.fa-arrow-down(ng-if='sortColumn === "role" && sortReverse === false')
+                  span(ng-click='sort("role")') Role
+                th.hidden-xs.hidden-sm.visible-md.visible-lg
+                  span &nbsp;
+                  i.fa.fa-arrow-up(ng-if='sortColumn === "contactPref" && sortReverse === true')
+                  i.fa.fa-arrow-down(ng-if='sortColumn === "contactPref" && sortReverse === false')
+                  span(ng-click='sort("contactPref")') Contact
+                th.hidden-xs.hidden-sm.visible-md.visible-lg
+                  span &nbsp;
+                  i.fa.fa-arrow-up(ng-if='sortColumn === "createdAt" && sortReverse === true')
+                  i.fa.fa-arrow-down(ng-if='sortColumn === "createdAt" && sortReverse === false')
+                  span(ng-click='sort("createdAt")') Created
                 th Edit
                 th Delete
             tbody
               tr(ng-repeat='user in users | orderBy : sortColumn : sortReverse')
                 td {{user.firstName}} {{user.lastName}}
-                td {{user.email}}
-                td {{user.phone}}
+                td.hidden-xs.visible-sm.visible-md.visible-lg {{user.email}}
+                td.hidden-xs.hidden-sm.hidden-md.visible-lg {{user.phone}}
                 td {{user.role}}
-                td {{user.contactPref}}
-                td {{user.createdAt | date:'dd-MMM-yyyy'}}
+                td.hidden-xs.hidden-sm.visible-md.visible-lg {{user.contactPref}}
+                td.hidden-xs.hidden-sm.visible-md.visible-lg {{user.createdAt | date:'dd-MMM-yyyy'}}
                 td: button.btn.btn-inverse.btn-block.btn-sm(ng-click='edit(user)'): i.fa.fa-pencil
                 td: button.btn.btn-inverse.btn-block.btn-sm(ng-click='remove(user)'): i.fa.fa-trash
