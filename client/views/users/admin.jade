@@ -90,4 +90,4 @@ section
                 td.hidden-xs.hidden-sm.visible-md.visible-lg {{user.contactPref}}
                 td.hidden-xs.hidden-sm.visible-md.visible-lg {{user.createdAt | date:'dd-MMM-yyyy'}}
                 td: button.btn.btn-inverse.btn-block.btn-sm(ng-click='edit(user)'): i.fa.fa-pencil
-                td: button.btn.btn-inverse.btn-block.btn-sm(ng-click='remove(user)'): i.fa.fa-trash
+                td: button.btn.btn-inverse.btn-block.btn-sm(ng-click='remove(user)' ng-show='user._id !== activeUser._id'): i.fa.fa-trash

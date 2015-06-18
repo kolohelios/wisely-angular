@@ -27,6 +27,7 @@ angular.module('wisely')
     $scope.collection.items.push(item);
     Collection.save($scope.collection)
     .then(function(){
+      $scope.itemForm = {};
     });
   };
 
@@ -65,5 +66,4 @@ angular.module('wisely')
     $scope.editItem = true;
     $scope.createOrEditItem = true;
   };
-
 });

@@ -9,10 +9,9 @@ section
             .col-xs-6
               p Cost driver: {{collection.costDriver}}
             .col-xs-6
-              .row
-                p Rooms: &nbsp;
-                  span(ng-repeat='room in collection.rooms track by $index') {{room}} 
-                    span(ng-show='!($last)') |&nbsp;
+              p Rooms:&nbsp;
+              span(ng-repeat='room in collection.rooms | orderBy: room') {{room}}&nbsp;
+                span(ng-show='!($last)') |&nbsp;
           .row
             section(ng-hide='createOrEditItem')
               button(ng-click='createButton()') Create a New Item
@@ -50,7 +49,7 @@ section
             thead
               tr
                 th Photo
-                th(ng-click='sort("name")') 
+                th(ng-click='sort("name")')
                   i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "name"')
                   i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "name"')
                   span &nbsp; Name
@@ -72,7 +71,7 @@ section
                 td: img.img-responsive.maxitemsize(ng-src='{{item.photo}}')
                 td {{item.name}}
                 td.hidden-xs {{item.extdDesc}}
-                td.hidden-xs {{item.materialPerUnit | currency : fractionSize : 0}}
+                td.hidden-xs {{item.materialPerUnit | currency : fractionSize : 2}}
                 td.hidden-xs {{item.laborHrsPerUnit}}
                 td
                   button.btn.btn-block.btn-sm.btn-info(ng-click='edit(item)'): i.fa.fa-pencil
