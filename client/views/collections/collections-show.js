@@ -66,7 +66,4 @@ angular.module('wisely')
     $scope.createOrEditItem = true;
   };
 
-  $scope.editCollection = function(collectionId){
-    // what should go here?
-  };
 });
