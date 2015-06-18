@@ -31,10 +31,17 @@ angular.module('wisely')
 
   Configuration.index()
   .then(function(response){
+    var responseData = response.data[0];
     $rootScope.config = {};
-    $rootScope.config.rooms = response.data[0].rooms;
-    $rootScope.config.roles = response.data[0].roles;
-    $rootScope.config.rates = response.data[0].rates[0];
+    $rootScope.config.rooms = responseData.rooms;
+    $rootScope.config.roles = {};
+    responseData.roles.forEach(function(role){
+      $rootScope.config.roles[role.role] = role.permission;
+    });
+    $rootScope.config.rates = {};
+    responseData.rates.forEach(function(rate){
+      $rootScope.config.rates[rate.element] = rate.rate;
+    });
   });
 
   $scope.logout = function(){

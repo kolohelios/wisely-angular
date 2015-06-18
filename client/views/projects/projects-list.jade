@@ -29,3 +29,5 @@ section#section-pricing.pricing
                 div.pricing-cta(ng-if='activeUser.role === 255')
                   button.btn.btn-warning.btn-md(ng-if='activeUser.role >= 127' ng-click='edit(project._id); $event.stopPropagation()'): i.fa.fa-pencil &nbsp; Edit
                   button.btn.btn-danger.btn-md(ng-if='activeUser.role >= 127' ng-click='remove(project._id); $event.stopPropagation()'): i.fa.fa-trash &nbsp; Delete
+          .col-xs-12(ng-show='!project')
+            p You do not currently have an active project to view.

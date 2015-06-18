@@ -31,13 +31,10 @@ section
               input.form-control.input-sm(type='password' name='phone' ng-model='password2' placeholder='Password validation...')
             .col-xs-12.col-sm-6
               label(for='role') Role
-              select.input-sm.select2-choice(name='role' ng-model='role')
-                option(value=1) Client
-                option(value=127) Project Manager
-                option(value=255) Admin
+              select.input-sm.select2-choice(ng-options='value as key for (key, value) in config.roles' ng-model='user.role')
             .col-xs-12.col-sm-6
-              label(for='role') Contact Preference
-              select.input-sm.select2-choice(name='role' ng-model='user.contactPref')
+              label(for='contactpref') Contact Preference
+              select.input-sm.select2-choice(name='contactpref' ng-model='user.contactPref')
                 option text
                 option e-mail
             .col-xs-12

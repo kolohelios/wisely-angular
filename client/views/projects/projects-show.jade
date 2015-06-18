@@ -24,7 +24,7 @@ section(ng-show='step === "selection"')
               th Collection
               th Cost
           tbody
-            tr(ng-repeat='impact in captureImpacts | orderBy : cost') 
+            tr(ng-repeat='impact in captureImpacts | orderBy : cost')
               td {{impact.room}}
               td {{impact.collection}}
               td {{impact.cost | currency : fractionSize : 0}}

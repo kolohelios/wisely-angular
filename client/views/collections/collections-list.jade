@@ -44,7 +44,7 @@ section
                   i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "name"')
                   i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "name"')
                   span &nbsp; Name
-                th(ng-click='sort("costDriver")')
+                th.hidden-xs(ng-click='sort("costDriver")')
                   i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "costDriver"')
                   i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "costDriver"')
                   span &nbsp; Cost Driver
@@ -58,7 +58,7 @@ section
             tbody
               tr(ng-repeat='collection in collections | orderBy : sortColumn : sortReverse' ng-click='showCollection(collection._id)')
                 td {{collection.name}}
-                td {{collection.costDriver}}
+                td.hidden-xs {{collection.costDriver}}
                 td: ul
                   li.text-center.nobullets(ng-repeat='room in collection.rooms | orderBy: room') {{room}}
                 td {{collection.items.length}}
