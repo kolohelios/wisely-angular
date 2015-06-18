@@ -65,6 +65,14 @@ angular.module('wisely')
   };
 
   $scope.addRoom = function(room){
-    $scope.collection.rooms.push(room);
+    if($scope.collection.rooms.indexOf(room) < 0){
+      $scope.collection.rooms.push(room);
+    }
+  };
+
+  $scope.removeRoom = function(room){
+    $window._.remove($scope.collection.rooms, function(roomFromList){
+      return roomFromList === room;
+    });
   };
 });

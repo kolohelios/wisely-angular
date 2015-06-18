@@ -10,9 +10,11 @@ section
               button(ng-click='createButton()') Create a New Collection
         section(ng-show='createOrEditCollection')
           .row
-            .col-xs-12.col-sm-6
+            .col-xs-12
               h4(ng-hide='editCollection') Create a Collection
               h4(ng-show='editCollection') Edit Collection
+          .row
+            .col-xs-12.col-sm-6
               form(name='newCollectionForm')
                 .form-group
                   label(for='name') Name
@@ -20,15 +22,15 @@ section
                 .form-group
                   label(for='costdriver') Cost Driver
                   input.form-control.input-sm(type='text' name='costdriver' ng-model='collection.costDriver' placeholder='Cost driver...')
-                .form-group
-                  label(for='rooms')
-                  select.input-sm.select2-choice(ng-model='room' name='rooms')
-                    option(ng-repeat='room in config.rooms') {{room}}
-                button.btn.btn-inverse.btn-block(ng-click='addRoom(room)') Add Room
             .col-xs-12.col-sm-6
+              .form-group
+                label(for='rooms') Add Room
+                select.input-sm.select2-choice(ng-model='roomFromList' name='rooms' ng-change='addRoom(roomFromList)')
+                  option(ng-repeat='roomFromList in config.rooms') {{roomFromList}}
               h5 Rooms
               ul.list-group
                 li.list-group-item(ng-repeat='room in collection.rooms | orderBy: room') {{room}}
+                  button.fltright.btn.btn-sm.btn-danger(ng-click='removeRoom(room)'): i.fa.fa-trash
           .row
             .col-xs-12
               br
@@ -46,7 +48,7 @@ section
                   i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "costDriver"')
                   i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "costDriver"')
                   span &nbsp; Cost Driver
-                th Rooms
+                th.text-center Rooms
                 th(ng-click='sort("items")')
                   i.fa.fa-sort-desc(ng-show='sortReverse && sortColumn === "items"')
                   i.fa.fa-sort-asc(ng-show='!sortReverse && sortColumn === "items"')
@@ -58,7 +60,7 @@ section
                 td {{collection.name}}
                 td {{collection.costDriver}}
                 td: ul
-                  li(ng-repeat='room in collection.rooms | orderBy: room') {{room}}
+                  li.nobullets(ng-repeat='room in collection.rooms | orderBy: room') {{room}}
                 td {{collection.items.length}}
                 td: button.btn.btn-inverse.btn-block.btn-sm(ng-click='edit(collection); $event.stopPropagation()'): i.fa.fa-pencil
                 td: button.btn.btn-inverse.btn-block.btn-sm(ng-click='remove(collection); $event.stopPropagation()'): i.fa.fa-trash
