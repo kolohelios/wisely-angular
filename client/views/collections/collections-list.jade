@@ -1,14 +1,14 @@
 section
   .container
     .row
-      .col-xs-12.text-center
-        header
+      .col-xs-12
+        header.text-center
           h3 Collections
-        section
+        section.text-center
           .row
             section(ng-hide='createOrEditCollection')
               button(ng-click='createButton()') Create a New Collection
-        section(ng-show='createOrEditCollection')
+        section.text-center(ng-show='createOrEditCollection')
           .row
             .col-xs-12
               h4(ng-hide='editCollection') Create a Collection
@@ -60,7 +60,7 @@ section
                 td {{collection.name}}
                 td {{collection.costDriver}}
                 td: ul
-                  li.nobullets(ng-repeat='room in collection.rooms | orderBy: room') {{room}}
+                  li.text-center.nobullets(ng-repeat='room in collection.rooms | orderBy: room') {{room}}
                 td {{collection.items.length}}
                 td: button.btn.btn-inverse.btn-block.btn-sm(ng-click='edit(collection); $event.stopPropagation()'): i.fa.fa-pencil
                 td: button.btn.btn-inverse.btn-block.btn-sm(ng-click='remove(collection); $event.stopPropagation()'): i.fa.fa-trash
